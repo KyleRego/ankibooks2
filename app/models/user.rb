@@ -8,4 +8,9 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
+
+  # for this to work, User has attribute 'password_digest'
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }
+  
 end
