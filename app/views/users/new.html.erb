@@ -1,18 +1,18 @@
-<h1>Sign up</h1>
-<%= form_with(model: @user, local: true) do |f| %>
+<h1 class="text-2xl p-4">Sign up</h1>
+<%= form_with(model: @user, local: true, class: "bg-gray-200 p-4 mx-4") do |f| %>
   <%= render 'shared/error_messages' %>
+  
+  <%= f.label :name, class: "block" %>
+  <%= f.text_field :name, class: "block" %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.label :email, class: "block" %>
+  <%= f.email_field :email, class: "block" %>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <%= f.label :password, class: "block" %>
+  <%= f.password_field :password, class: "block" %>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-
-  <%= f.label :password_confirmation, "Confirmation" %>
-  <%= f.password_field :password_confirmation %>
+  <%= f.label :password_confirmation, "Confirmation", class: "block" %>
+  <%= f.password_field :password_confirmation, class: "block" %>
 
   <%= f.submit "Create my account" %>
 <% end %>
