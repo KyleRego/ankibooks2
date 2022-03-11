@@ -5,7 +5,7 @@
 
   <span class="text-white">
   <% if logged_in? %>
-    <%= link_to "Log out", logout_path, method: :delete %>
+    <%= button_to "Log out", logout_path, method: :delete %>
   <% else %>
     <%= link_to "Sign up", signup_path, class: "pr-4" %>
     <%= link_to "Log in", login_path %>
