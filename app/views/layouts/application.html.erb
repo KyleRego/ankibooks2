@@ -11,6 +11,7 @@
   </head>
 
   <body>
+    <%= render "layouts/flash_messages" %>
     <%= yield %>
     <% if Rails.env.development? %>
       <pre><%= params %></pre>
