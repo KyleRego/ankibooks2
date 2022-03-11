@@ -12,5 +12,8 @@
 
   <body>
     <%= yield %>
+    <% if Rails.env.development? %>
+      <pre><%= params %></pre>
+    <% end %>
   </body>
 </html>
