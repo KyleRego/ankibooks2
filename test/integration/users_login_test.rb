@@ -17,6 +17,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path
   end
 
+  test "login with valid email/invalid password" do
+    get login_path
+    assert_template 'sessions/new'
+    post login_path, params: { session: { email: 'example@outlook.com',
+                                          password: 'aaa' } }
+    assert_template 'sessions/new'
+    assert_not flash.empty?
+    get '/'
+    assert flash.empty?
+  end
+
   test 'login with invalid information' do
     get login_path
     assert_template 'sessions/new'
