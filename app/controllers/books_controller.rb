@@ -4,6 +4,21 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
+  def edit # GET /books/:id/edit
+    ensure_logged_in
+    @book = Book.find_by(params[:id])
+  end
+
+  def update # PATCH /books/:id
+    @book = Book.find_by(params[:id])
+    user = current_user
+    if user && @book.update(book_params)
+      redirect_to @book
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def create # POST /books
     @book = Book.new(book_params)
     user = current_user
