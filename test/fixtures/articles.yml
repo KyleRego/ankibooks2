@@ -3,7 +3,9 @@
 one:
   name: MyString
   content: MyText
+  book_id: 1
 
 two:
   name: MyString
   content: MyText
+  book_id: 1

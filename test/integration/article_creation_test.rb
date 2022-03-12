@@ -14,6 +14,7 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_template 'books/show'
+    assert_equal "Article successfully created.", flash[:success]
   end
 
   test 'should not make an article if it does not have a name' do
