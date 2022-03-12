@@ -1,1 +1,11 @@
-<%= @user.name %>, <%= @user.email %>
+<h1 class="text-2xl px-4 pt-4"><%= @user.name %></h1>
+<h2 class="text-xl px-4 pt-4">Your books: <a href="/books/new" class="text-blue-600 underline">Add Book</a></h2>
+<ul class="px-4 pt-4 list-inside list-disc">
+  <% @books.each do |book| %>
+    <li>
+      <a href="/books/<%= book.id %>">
+        <%= book.name %>
+      </a>
+    </li>
+  <% end %>
+</ul>
