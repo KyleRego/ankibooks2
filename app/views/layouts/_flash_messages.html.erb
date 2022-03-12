@@ -1,5 +1,5 @@
 <% flash.each do |message_key, message| %>
-  <div style="background-color: yellow">
+  <div class= "<%= message_key == 'success' ? 'bg-blue-200 p-4' : 'bg-red-200 p-4' %>">
     <%= message %>
   </div>
 <% end %>

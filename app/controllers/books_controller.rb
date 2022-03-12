@@ -11,6 +11,7 @@ class BooksController < ApplicationController
     @book = Book.find_by(params[:id])
     user = current_user
     if user && @book.update(book_params)
+      flash[:success] = "Book sucessfully updated."
       redirect_to @book
     else
       render :edit, status: :unprocessable_entity
@@ -38,6 +39,7 @@ class BooksController < ApplicationController
     book = current_user.books.find(params[:id])
     if user && book
       book.destroy
+      flash[:success] = "Book successfully deleted."
       redirect_to user, status: :see_other
     else
       redirect_to '/'
