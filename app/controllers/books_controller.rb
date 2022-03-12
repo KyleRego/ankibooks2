@@ -4,12 +4,12 @@ class BooksController < ApplicationController
   end
 
   def edit # GET /books/:id/edit
-    @book = Book.find_by(params[:id])
+    @book = current_user.books.find(params[:id])
   end
 
   def update # PATCH /books/:id
-    @book = Book.find_by(params[:id])
     user = current_user
+    @book = user.books.find(params[:id])
     if user && @book.update(book_params)
       flash[:success] = "Book successfully updated."
       redirect_to @book
@@ -31,12 +31,12 @@ class BooksController < ApplicationController
   end
 
   def show # GET /books/:id
-    @book = Book.find_by(params[:id])
+    @book = current_user.books.find(params[:id])
   end
 
   def destroy # DELETE /books/:id
     user = current_user
-    book = current_user.books.find(params[:id])
+    book = user.books.find(params[:id])
     if user && book
       book.destroy
       flash[:success] = "Book successfully deleted."

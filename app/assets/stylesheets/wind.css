@@ -501,6 +501,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .list-inside {
   list-style-position: inside;
 }

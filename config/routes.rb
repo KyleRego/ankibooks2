@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'books/new'
-
   get '/', to: 'static_pages#welcome'
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'
