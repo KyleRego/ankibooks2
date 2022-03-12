@@ -3,9 +3,11 @@
   <%= @book.description %>
   <a class="text-blue-600 underline" href="/books/<%= @book.id %>/edit">Edit</a>
 </h2>
-<h3 class="px-4 pt-4 text-lg">Articles: <%= link_to "New article", new_book_article_path(@book.id), class: "text-blue-600 underline" %></h3>
-<ul>
+
+<ul class="m-4 p-4 list-inside list-disc bg-white border border-black w-fit">
+  <h3 class="text-lg">Articles:</h3>
   <% @book.articles.each do |article| %>
     <li><%= article.name %></li>
   <% end %>
+  <%= link_to "New article", new_book_article_path(@book.id), class: "text-blue-600 underline" %>
 </ul>

@@ -549,6 +549,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100%;
 }
 
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .resize-none {
   resize: none;
 }
@@ -579,6 +585,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-between {
   justify-content: space-between;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-gray-200 {
@@ -613,6 +628,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 .px-4 {
