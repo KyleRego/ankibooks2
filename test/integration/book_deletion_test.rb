@@ -9,6 +9,7 @@ class BookDeletionTest < ActionDispatch::IntegrationTest
     delete book_path(book.id)
     follow_redirect!
     assert_template 'users/show'
+    assert_equal "Book successfully deleted.", flash[:success]
   end
 
   test 'should not be able to delete a book if not logged in' do

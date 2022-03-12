@@ -11,7 +11,7 @@ class BooksController < ApplicationController
     @book = Book.find_by(params[:id])
     user = current_user
     if user && @book.update(book_params)
-      flash[:success] = "Book sucessfully updated."
+      flash[:success] = "Book successfully updated."
       redirect_to @book
     else
       render :edit, status: :unprocessable_entity

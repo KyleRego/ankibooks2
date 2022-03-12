@@ -9,6 +9,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
                                                     description: "New description" } }
     follow_redirect!
     assert_template "books/show"
+    assert_equal "Book successfully updated.", flash[:success]
   end
 
   test 'should not edit a book if no new name given' do
