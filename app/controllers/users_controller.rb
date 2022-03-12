@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :require_login, only: [:new, :create]
+
   def show # GET /users/:id
     @user = User.find(params[:id])
     @books = @user.books

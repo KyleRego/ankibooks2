@@ -22,11 +22,4 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
-
-  # Redirect to '/' if no user is logged in
-  def ensure_logged_in
-    unless logged_in?
-      redirect_to '/' and return
-    end
-  end
 end

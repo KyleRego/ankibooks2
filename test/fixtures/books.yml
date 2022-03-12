@@ -14,3 +14,8 @@ two:
   id: 2
   name: Book 2 Title
   description: Book 2 Description
+
+book_three:
+  id: 3
+  name: Book 3 Title
+  description: This book belongs to 'user'

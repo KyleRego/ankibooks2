@@ -16,9 +16,14 @@ class ActiveSupport::TestCase
     !session[:user_id].nil?
   end
 
+  # Log in as the user kyle from test/fixtures/users.yml
   def log_in_for_test
     user = users(:kyle)
     post login_path, params: { session: { email: user.email,
                                           password: 'password' } }
+  end
+
+  def current_user_for_test
+    users(:kyle)
   end
 end

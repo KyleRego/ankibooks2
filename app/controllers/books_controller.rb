@@ -1,11 +1,9 @@
 class BooksController < ApplicationController
   def new # GET /books/new
-    ensure_logged_in
     @book = Book.new
   end
 
   def edit # GET /books/:id/edit
-    ensure_logged_in
     @book = Book.find_by(params[:id])
   end
 
@@ -33,6 +31,17 @@ class BooksController < ApplicationController
 
   def show # GET /books/:id
     @book = Book.find_by(params[:id])
+  end
+
+  def destroy # DELETE /books/:id
+    user = current_user
+    book = current_user.books.find(params[:id])
+    if user && book
+      book.destroy
+      redirect_to user, status: :see_other
+    else
+      redirect_to '/'
+    end
   end
 
   private
