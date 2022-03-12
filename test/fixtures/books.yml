@@ -18,4 +18,4 @@ two:
 book_three:
   id: 3
   name: Book 3 Title
-  description: This book belongs to 'user'
+  description: This book belongs to user

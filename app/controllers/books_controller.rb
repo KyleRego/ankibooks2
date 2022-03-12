@@ -37,13 +37,9 @@ class BooksController < ApplicationController
   def destroy # DELETE /books/:id
     user = current_user
     book = user.books.find(params[:id])
-    if user && book
-      book.destroy
-      flash[:success] = "Book successfully deleted."
-      redirect_to user, status: :see_other
-    else
-      redirect_to '/'
-    end
+    book.destroy
+    flash[:success] = "Book successfully deleted."
+    redirect_to user, status: :see_other
   end
 
   private

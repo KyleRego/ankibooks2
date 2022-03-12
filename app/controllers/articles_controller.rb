@@ -32,6 +32,15 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy # DELETE /books/:book_id/articles/:id
+    user = current_user
+    book = user.books.find_by(params[:book_id])
+    article = book.articles.find(params[:id])
+    article.destroy
+    flash[:success] = "Article successfully deleted."
+    redirect_to book_path(book), status: :see_other
+  end
+
   private
 
   def article_params
