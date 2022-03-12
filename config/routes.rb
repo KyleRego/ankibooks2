@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'books/new'
 
   get '/', to: 'static_pages#welcome'
   get '/help', to: 'static_pages#help'
@@ -11,5 +12,9 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :users
+
+  resources :books do
+    resources :articles
+  end
 
 end
