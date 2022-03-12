@@ -2,4 +2,10 @@
 <h2 class="px-4 pt-4 text-xl">
   <%= @book.description %>
   <a class="text-blue-600 underline" href="/books/<%= @book.id %>/edit">Edit</a>
-</h1>
+</h2>
+<h3 class="px-4 pt-4 text-lg">Articles: <%= link_to "New article", new_book_article_path(@book.id), class: "text-blue-600 underline" %></h3>
+<ul>
+  <% @book.articles.each do |article| %>
+    <li><%= article.name %></li>
+  <% end %>
+</ul>

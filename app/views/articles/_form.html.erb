@@ -1,0 +1,30 @@
+<div class="grid grid-cols-2 h-screen">
+  <div>
+  <h1 class="p-4 text-2xl"><%= title %></h1>
+    <%= form_with model: [ @book, @article ], class: "px-4" do |f| %>
+
+      <% if @article.errors.any? %>
+        <div>
+          This form contains <%= pluralize(@article.errors.count, "error") %>.
+          <ul>
+            <% @article.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.label :name, class: "block" %>
+      <%= f.text_field :name, class: "block" %>
+
+      <%= f.label :content, class: "block" %>
+      <%= f.text_area :content, class: "block w-full h-96 min-h-full resize-none", id: "markdown-editor" %>
+
+      <%= f.submit %>
+    <% end %>
+  </div>
+
+  <div class="bg-white m-4" id="preview">
+
+  </div>
+</div>
