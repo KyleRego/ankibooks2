@@ -12,6 +12,35 @@ class BookCreationTest < ActionDispatch::IntegrationTest
     assert_template :show
   end
 
+  test 'should not make a new book without a name' do
+    log_in_for_test
+    get new_book_path
+    assert_no_difference 'Book.count' do
+      post books_path, params: { book: { name: "",
+                                          description: "A description" } }
+    end
+    assert_template 'books/new'
+  end
+
+  test 'should not make a new book without a description' do
+    log_in_for_test
+    get new_book_path
+    assert_no_difference 'Book.count' do
+      post books_path, params: { book: { name: "Valid book name",
+                                          description: "" } }
+    end
+    assert_template 'books/new'
+  end
+
+  test 'should display errors when trying to make a new book without a name or description' do
+    log_in_for_test
+    post books_path, params: { book: { name: "", description: "" } }
+    assert_template 'books/new'
+    assert_match /This form contains 2 errors./, @response.body
+    assert_match /Name can&#39;t be blank/, @response.body
+    assert_match /Description can&#39;t be blank/, @response.body
+  end
+
   test 'should redirect from new book view if not logged in' do
     get new_book_path
     follow_redirect!

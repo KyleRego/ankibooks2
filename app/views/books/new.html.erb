@@ -1,6 +1,17 @@
 <h1>New Book:</h1>
 <%= form_with model: @book, local: true, class: "bg-gray-200 p-4 mx-4" do |f| %>
 
+  <% if @book.errors.any? %>
+    <div>
+      This form contains <%= pluralize(@book.errors.count, "error") %>.
+      <ul>
+        <% @book.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= f.label :name, class: "block" %>
   <%= f.text_field :name, class: "block" %>
 
