@@ -1,14 +1,22 @@
-<div class="bg-white border border-black m-4 p-4 w-fit">
+<div class="flex flex-row justify-between min-h-screen">
+  
+  <div class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-fit h-fit">
 
-  <h1 class="text-2xl border-b border-black pb-4 mb-4">
-    <%= @book.name %>
-  </h1>
+    <h1 class="text-2xl border-b border-black pb-4 mb-4">
+      <%= @book.name %>
+    </h1>
 
-  <ul>
-    <% @book.top_level_articles.each do |top_level_article| %>
-      <%= render partial: 'article_tree_part', locals: {article: top_level_article} %>
-    <% end %>
-  </ul>
+    <ul>
+      <% @book.top_level_articles.each do |top_level_article| %>
+        <%= render partial: 'reader_article_tree_part', locals: {article: top_level_article} %>
+      <% end %>
+    </ul>
 
-  <%= link_to 'New article', new_book_article_path(@book), class: "text-blue-600 underline" %>
+  </div>
+
+  <div class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-full">
+
+  hello world
+  </div>
+
 </div>

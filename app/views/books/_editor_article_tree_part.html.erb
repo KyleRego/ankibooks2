@@ -6,7 +6,7 @@
   <% if article.has_children? %>
     <ul class="pl-4">
       <% article.subarticles.each do |subarticle| %>
-        <%= render partial: 'article_tree_part', locals: {article: subarticle} %>
+        <%= render partial: 'editor_article_tree_part', locals: {article: subarticle} %>
       <% end %>
     </ul>
   <% end %>

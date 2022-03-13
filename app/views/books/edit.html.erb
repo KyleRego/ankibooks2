@@ -1,4 +1,23 @@
 <h1 class="p-4 text-2xl">Editing book "<%= @book.name %>"</h1>
-<%= render 'form' %>
 
+<div class="grid grid-cols-2">
+  <div class="bg-white border border-black m-4 p-4 w-fit">
+
+    <h1 class="text-2xl border-b border-black pb-4 mb-4">
+      <%= @book.name %>
+    </h1>
+
+    <ul>
+      <% @book.top_level_articles.each do |top_level_article| %>
+        <%= render partial: 'editor_article_tree_part', locals: {article: top_level_article} %>
+      <% end %>
+    </ul>
+      
+    <%= link_to 'New article', new_book_article_path(@book), class: "text-blue-600 underline" %>
+  </div>
+
+  <div>
+    <%= render 'form' %>
+  </div>
+</div>
 <%= link_to "Delete book", book_path(@book), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>

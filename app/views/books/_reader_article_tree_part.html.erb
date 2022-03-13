@@ -1,0 +1,11 @@
+<li>
+  <%= article.name %>
+
+  <% if article.has_children? %>
+    <ul class="pl-4">
+      <% article.subarticles.each do |subarticle| %>
+        <%= render partial: 'reader_article_tree_part', locals: {article: subarticle} %>
+      <% end %>
+    </ul>
+  <% end %>
+</li>
