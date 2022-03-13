@@ -6,4 +6,10 @@ class Book < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 100 }, uniqueness: true
   validates :description, presence: true, length: { maximum: 250 }
+
+  def top_level_articles
+    self.articles.select do |article|
+      article.parent_id.nil?
+    end
+  end
 end

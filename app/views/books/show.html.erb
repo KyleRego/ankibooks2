@@ -6,11 +6,17 @@
 
 <ul class="m-4 p-4 list-inside list-disc bg-white border border-black w-fit">
   <h3 class="text-lg">Articles:</h3>
-  <% @book.articles.each do |article| %>
+  <% @book.top_level_articles.each do |article| %>
     <li>
       <%= article.name %>
       <%= link_to "edit", edit_book_article_path(@book, article), class: "pl-1 underline text-blue-600" %>
+      <%= link_to "New subarticle", "/books/#{@book.id}/articles/#{article.id}/new", class: "underline text-blue-600" %>
+      <ul>
+      <% article.subarticles.each do |subarticle| %>
+        <li><%= subarticle.name %></li>
+      <% end %>
+      </ul>
     </li>
   <% end %>
-  <%= link_to "New article", new_book_article_path(@book.id), class: "text-blue-600 underline" %>
+  <%= link_to "New article", new_book_article_path(@book), class: "text-blue-600 underline" %>
 </ul>

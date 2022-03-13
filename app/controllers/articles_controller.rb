@@ -4,6 +4,12 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def new_subarticle # GET /books/:book_id/articles/:parent_id/new
+    @book = current_user.books.find_by(params[:book_id])
+    @parent_article = @book.articles.find_by(params[:parent_id])
+    @article = Article.new
+  end
+
   def create #  POST /books/:book_id/articles
     @book = current_user.books.find_by(params[:book_id])
     @article = @book.articles.new(article_params)
@@ -44,6 +50,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:name, :content)
+    params.require(:article).permit(:name, :content, :parent_id)
   end
 end

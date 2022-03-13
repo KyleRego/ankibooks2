@@ -1,16 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: Fixture Article 1
   content: Content of fixture article 1
   book_id: 1
+  parent_id: null
 
 two:
+  id: 2
   name: Fixture Article 2
-  content: Content of fixture article 2
+  content: Content of fixture article 2, which is a subarticle of fixture article 1
   book_id: 1
+  parent_id: 1
 
 three:
+  id: 3
   name: Fixture Article 3
   content: This test article belongs to book 3, which belongs to user
   book_id: 3

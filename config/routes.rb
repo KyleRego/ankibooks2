@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   resources :books do
     resources :articles
   end
+
+  get '/books/:book_id/articles/:parent_id/new', to: 'articles#new_subarticle'
 end

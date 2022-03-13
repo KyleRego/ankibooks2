@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_12_201551) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_13_134938) do
   create_table "articles", force: :cascade do |t|
     t.string "name"
     t.text "content"
     t.integer "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "parent_id"
     t.index ["book_id"], name: "index_articles_on_book_id"
+    t.index ["parent_id"], name: "index_articles_on_parent_id"
   end
 
   create_table "book_users", force: :cascade do |t|
@@ -45,4 +47,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_12_201551) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "articles", "articles", column: "parent_id"
 end

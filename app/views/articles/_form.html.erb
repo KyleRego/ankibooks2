@@ -1,7 +1,7 @@
 <div class="grid grid-cols-2 h-screen">
   <div>
   <h1 class="p-4 text-2xl"><%= title %></h1>
-    <%= form_with model: [ @book, @article ], class: "px-4" do |f| %>
+    <%= form_with model: [@book, @article], class: "px-4" do |f| %>
 
       <% if @article.errors.any? %>
         <div>
@@ -19,6 +19,8 @@
 
       <%= f.label :content, class: "block" %>
       <%= f.text_area :content, class: "block w-full h-96 min-h-full resize-none", id: "markdown-editor" %>
+
+      <%= f.hidden_field :parent_id, value: "#{@parent_article ? @parent_article.id : nil}" %>
 
       <%= f.submit %>
     <% end %>
