@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
 
   def new_subarticle # GET /books/:book_id/articles/:parent_id/new
     @book = current_user.books.find_by(params[:book_id])
-    @parent_article = @book.articles.find_by(params[:parent_id])
+    @parent_article = @book.articles.find(params[:parent_id])
     @article = Article.new
   end
 

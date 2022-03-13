@@ -4,19 +4,13 @@
   <a class="text-blue-600 underline" href="/books/<%= @book.id %>/edit">Edit</a>
 </h2>
 
-<ul class="m-4 p-4 list-inside list-disc bg-white border border-black w-fit">
+<div class="bg-white border border-black m-4 p-4 w-fit">
   <h3 class="text-lg">Articles:</h3>
-  <% @book.top_level_articles.each do |article| %>
-    <li>
-      <%= article.name %>
-      <%= link_to "edit", edit_book_article_path(@book, article), class: "pl-1 underline text-blue-600" %>
-      <%= link_to "New subarticle", "/books/#{@book.id}/articles/#{article.id}/new", class: "underline text-blue-600" %>
-      <ul>
-      <% article.subarticles.each do |subarticle| %>
-        <li><%= subarticle.name %></li>
-      <% end %>
-      </ul>
-    </li>
-  <% end %>
-  <%= link_to "New article", new_book_article_path(@book), class: "text-blue-600 underline" %>
-</ul>
+  <ul>
+    <% @book.top_level_articles.each do |top_level_article| %>
+      <%= render partial: 'article_tree_part', locals: {article: top_level_article} %>
+    <% end %>
+  </ul>
+
+  <%= link_to 'New article', new_book_article_path(@book), class: "text-blue-600 underline" %>
+</div>

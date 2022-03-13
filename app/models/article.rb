@@ -9,4 +9,8 @@ class Article < ApplicationRecord
   def subarticles
     subarticles = Article.where(parent_id: self.id)
   end
+
+  def has_children?
+    subarticles.count != 0
+  end
 end
