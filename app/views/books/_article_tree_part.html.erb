@@ -1,6 +1,6 @@
 <li>
   <%= article.name %>
-  <%= link_to "edit", edit_book_article_path(@book, article), class: "pl-1 underline text-blue-600" %>
+  <%= link_to "Edit", edit_book_article_path(@book, article), class: "pl-1 underline text-blue-600" %>
   <%= link_to "New subarticle", "/books/#{@book.id}/articles/#{article.id}/new", class: "underline text-blue-600" %>
 
   <% if article.has_children? %>
