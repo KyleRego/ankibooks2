@@ -38,4 +38,17 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
     assert_template 'articles/new'
     assert_match /This form contains 1 error./, @response.body
   end
+  
+  test 'should make a subarticle' do
+    log_in_for_test
+    book = books(:one)
+    parent_article = articles(:one)
+    get "/books/#{book.id}/articles/#{parent_article.id}/new"
+    post "/books/#{book.id}/articles", params: { article: { name: "new child article",
+                                                            content: "description",
+                                                            parent_id: parent_article.id } }
+    follow_redirect!
+    assert_equal "Article successfully created.", flash[:success]
+    assert_template 'books/show'
+  end    
 end
