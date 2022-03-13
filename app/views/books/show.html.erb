@@ -2,7 +2,6 @@
 
   <h1 class="text-2xl border-b border-black pb-4 mb-4">
     <%= @book.name %>
-    <a class="text-blue-600 underline" href="/books/<%= @book.id %>/edit">Edit</a>
   </h1>
 
   <ul>
@@ -13,4 +12,3 @@
 
   <%= link_to 'New article', new_book_article_path(@book), class: "text-blue-600 underline" %>
 </div>
-<p class="p-4"><%= @book.description %></p>
