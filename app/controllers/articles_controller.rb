@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
 
   def edit # GET /books/:book_id/articles/:id/edit
     @book = current_user.books.find_by(params[:book_id])
-    @article = @book.articles.find_by(params[:id])
+    @article = @book.articles.find(params[:id])
   end
 
   def update # PATCH /books/:book_id/articles/:id
