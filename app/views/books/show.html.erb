@@ -2,7 +2,7 @@
   
   <div class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-fit h-fit">
 
-    <h1 class="text-2xl border-b border-black pb-4 mb-4">
+    <h1 id="title-for-book-with-id-<%= @book.id %>" class="book-title text-center text-2xl border-b border-black pb-4 mb-4">
       <%= @book.name %>
     </h1>
 
@@ -14,9 +14,27 @@
 
   </div>
 
-  <div class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-full">
+  <div id="article-content-div" class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-full">
 
   hello world
   </div>
 
 </div>
+
+<script>
+  const book_id = document.querySelector('.book-title').id.split('-')[5];
+  let articleContentDiv = document.querySelector("#article-content-div")
+  const readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
+
+  readerArticleTreeParts.forEach(function(element) {
+    element.addEventListener('click', function(){
+      let article_id = element.id.split('-')[7];
+      let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`);
+      fetchResponsePromise
+      .then(response => response.json())
+      .then(function(data) {
+        articleContentDiv.innerText = data["content"];
+      });
+    });
+  });
+</script>

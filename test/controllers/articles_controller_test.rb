@@ -8,7 +8,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get a json response' do
+  test 'should get a json response from articles#show' do
     log_in_for_test
     book = books(:one)
     article = articles(:one)

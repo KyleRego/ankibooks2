@@ -1,11 +1,11 @@
-<li>
+<li id="reader-article-part-for-article-with-id-<%= article.id %>" class="reader-article-tree-parts hover:bg-gray-200 shadow-sm">
   <%= article.name %>
-
-  <% if article.has_children? %>
-    <ul class="pl-4">
-      <% article.subarticles.each do |subarticle| %>
-        <%= render partial: 'reader_article_tree_part', locals: {article: subarticle} %>
-      <% end %>
-    </ul>
-  <% end %>
 </li>
+
+<% if article.has_children? %>
+  <ul class="pl-4">
+    <% article.subarticles.each do |subarticle| %>
+      <%= render partial: 'reader_article_tree_part', locals: {article: subarticle} %>
+    <% end %>
+  </ul>
+<% end %>
