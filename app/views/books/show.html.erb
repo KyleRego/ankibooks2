@@ -1,3 +1,40 @@
+<style>
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.75rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
+
+#article-content-div li {
+  list-style: inside;
+}
+
+
+</style>
+
 <div class="flex flex-row justify-between min-h-screen">
   
   <div class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-fit h-fit">
@@ -15,10 +52,29 @@
   </div>
 
   <div id="article-content-div" class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-full">
-    <%= @book.articles.first.content %>
   </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+const tokenizer = {
+  codespan(src) {
+    const match = src.match(/\[\[([^\$\n]+?)\]\]/)
+    if (match) {
+      return {
+        type: 'codespan',
+        raw: match[0],
+        text: match[1]
+      };
+    }
+    return false;
+  }
+};
+
+marked.use({ tokenizer });
+</script>
 
 <script>
   const book_id = document.querySelector('.book-title').id.split('-')[5];
@@ -31,7 +87,7 @@
     fetchResponsePromise
     .then(response => response.json())
     .then(function(data){
-      articleContentDiv.innerText = data["content"]
+      articleContentDiv.innerHTML = marked.parse(data["content"])
     })
   }
 

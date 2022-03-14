@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
 
     if @article.save
       flash[:success] = "Article successfully created."
-      redirect_to book_path(@book.id)
+      redirect_to edit_book_path(@book)
     else
       render :new, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
     @article = @book.articles.find_by(params[:id])
     if @article.update(article_params)
       flash[:success] = "Article successfully updated."
-      redirect_to book_path(@book.id)
+      redirect_to edit_book_path(@book)
     else
       render :edit, status: :unprocessable_entity
     end

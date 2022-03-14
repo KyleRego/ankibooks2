@@ -13,7 +13,7 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
                                                               content: 'article content' } }
     end
     follow_redirect!
-    assert_template 'books/show'
+    assert_template 'books/edit'
     assert_equal "Article successfully created.", flash[:success]
   end
 
@@ -49,6 +49,6 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
                                                             parent_id: parent_article.id } }
     follow_redirect!
     assert_equal "Article successfully created.", flash[:success]
-    assert_template 'books/show'
+    assert_template 'books/edit'
   end    
 end

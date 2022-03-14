@@ -14,7 +14,7 @@ class ArticleEditingTest < ActionDispatch::IntegrationTest
                                                                       content: "New article content" } }
     assert_response :redirect
     follow_redirect!
-    assert_template 'books/show'
+    assert_template 'books/edit'
     assert_equal "Article successfully updated.", flash[:success]
   end
 
