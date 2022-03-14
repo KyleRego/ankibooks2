@@ -10,6 +10,12 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def show # GET /books/:book_id/articles/:id
+    @book = current_user.books.find_by(params[:book_id])
+    @article = @book.articles.find(params[:id])
+    render json: @article
+  end
+
   def create #  POST /books/:book_id/articles
     @book = current_user.books.find_by(params[:book_id])
     @article = @book.articles.new(article_params)
