@@ -55,3 +55,34 @@ h1, h2, h3, h4, h5, h6 {
   </div>
 
 </div>
+
+<script>
+try {
+  let book_id = document.querySelector('.book-title').id.split('-')[5];
+  let initial_article_id = document.querySelectorAll(".reader-article-tree-parts")[0].id.split('-')[7];
+  let articleContentDiv = document.querySelector("#article-content-div");
+  let readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
+
+  
+  function loadArticleContent(book_id, article_id){
+    let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`)
+    fetchResponsePromise
+    .then(response => response.json())
+    .then(function(data){
+      articleContentDiv.innerHTML = data["content"];
+    })
+  }
+
+  loadArticleContent(book_id, initial_article_id);
+
+  readerArticleTreeParts.forEach(function(element) {
+    element.addEventListener('click', function(){
+      let article_id = element.id.split('-')[7];
+      loadArticleContent(book_id, article_id);
+    });
+  });
+
+} catch(error) {
+  console.log(error);
+}
+</script>
