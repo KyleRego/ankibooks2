@@ -56,38 +56,18 @@ h1, h2, h3, h4, h5, h6 {
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 <script>
-const tokenizer = {
-  codespan(src) {
-    const match = src.match(/\[\[([^\$\n]+?)\]\]/)
-    if (match) {
-      return {
-        type: 'codespan',
-        raw: match[0],
-        text: match[1]
-      };
-    }
-    return false;
-  }
-};
-
-marked.use({ tokenizer });
-</script>
-
-<script>
-  const book_id = document.querySelector('.book-title').id.split('-')[5];
-  const initial_article_id = document.querySelectorAll(".reader-article-tree-parts")[0].id.split('-')[7];
+  let book_id = document.querySelector('.book-title').id.split('-')[5];
+  let initial_article_id = document.querySelectorAll(".reader-article-tree-parts")[0].id.split('-')[7];
   let articleContentDiv = document.querySelector("#article-content-div");
-  const readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
+  let readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
 
   function loadArticleContent(book_id, article_id){
     let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`)
     fetchResponsePromise
     .then(response => response.json())
     .then(function(data){
-      articleContentDiv.innerHTML = marked.parse(data["content"])
+      articleContentDiv.innerHTML = data["content"]
     })
   }
 
