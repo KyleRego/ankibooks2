@@ -15,26 +15,32 @@
   </div>
 
   <div id="article-content-div" class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-full">
-
-  hello world
+    <%= @book.articles.first.content %>
   </div>
 
 </div>
 
 <script>
   const book_id = document.querySelector('.book-title').id.split('-')[5];
-  let articleContentDiv = document.querySelector("#article-content-div")
+  const initial_article_id = document.querySelectorAll(".reader-article-tree-parts")[0].id.split('-')[7];
+  let articleContentDiv = document.querySelector("#article-content-div");
   const readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
+
+  function loadArticleContent(book_id, article_id){
+    let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`)
+    fetchResponsePromise
+    .then(response => response.json())
+    .then(function(data){
+      articleContentDiv.innerText = data["content"]
+    })
+  }
+
+  loadArticleContent(book_id, initial_article_id);
 
   readerArticleTreeParts.forEach(function(element) {
     element.addEventListener('click', function(){
       let article_id = element.id.split('-')[7];
-      let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`);
-      fetchResponsePromise
-      .then(response => response.json())
-      .then(function(data) {
-        articleContentDiv.innerText = data["content"];
-      });
+      loadArticleContent(book_id, article_id);
     });
   });
 </script>
