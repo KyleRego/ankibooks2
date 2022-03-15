@@ -94,35 +94,21 @@ try {
     textArea.focus();
   }
 
-  header1Button.addEventListener('click', function(event){
-    event.preventDefault();
-    writeTextToMarkdownEditor("# ");
-  })
+  // add click event lister to button which calls writeTextToMarkdownEditor
+  function addClickEventToMarkdownEditorButton(button, text1, text2=""){
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      writeTextToMarkdownEditor(text1, text2);
+    })
+  }
 
-  header2Button.addEventListener('click', function(event){
-    event.preventDefault();
-    writeTextToMarkdownEditor("## ");
-  })
-
-  header3Button.addEventListener('click', function(event){
-    event.preventDefault();
-    writeTextToMarkdownEditor("### ");
-  })
-
-  italicizeButton.addEventListener('click', function(event){
-    event.preventDefault();
-    writeTextToMarkdownEditor("*", "*");
-  })
-
-  boldButton.addEventListener('click', function(event){
-    event.preventDefault();
-    writeTextToMarkdownEditor("**", "**");
-  })
-
-  codeButton.addEventListener('click', function(event){
-    event.preventDefault();
-    writeTextToMarkdownEditor("`", "`");
-  })
+  addClickEventToMarkdownEditorButton(header1Button, "# ");
+  addClickEventToMarkdownEditorButton(header2Button, "## ");
+  addClickEventToMarkdownEditorButton(header3Button, "### ");
+  addClickEventToMarkdownEditorButton(italicizeButton, "*", "*");
+  addClickEventToMarkdownEditorButton(boldButton, "**", "**");
+  addClickEventToMarkdownEditorButton(codeButton, "`", "`");
+  
 } catch (error) {
   console.log(error);
 }
