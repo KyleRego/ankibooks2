@@ -1,2 +1,4 @@
 <%= render partial: 'form', locals: {title: "Editing Article: #{@article.name}"} %>
-<%= link_to "Delete article", book_article_path(@book, @article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<div class="mt-8">
+  <%= link_to "Delete article", book_article_path(@book, @article), class: "p-2 bg-red-600 text-white rounded-md float-right", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+</div>
