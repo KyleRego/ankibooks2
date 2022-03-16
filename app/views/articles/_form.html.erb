@@ -84,7 +84,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script defer>
 try {
-const ankiExtension1 = {
+const ankiExtension = {
   name: 'ankiNote',
   level: 'inline',
   start(src) { return src.match(/\[\[/)?.index; },
@@ -95,7 +95,7 @@ const ankiExtension1 = {
       return {
         type: 'ankiNote',
         raw: match[0],
-        text: match[0].replace('[[', '').replace(']]', ''),
+        text: match[0].replace('[[', '').replace(']]', '').replace(/{{c\d::(.*)}}/, "<span class='ankiCloze'>$1</span>"),
         tokens: []
       };
     }
@@ -105,27 +105,7 @@ const ankiExtension1 = {
   }
 };
 
-const ankiExtension2 = {
-  name: 'ankiCloze',
-  level: 'inline',
-  start(src) { return src.match(/{{c\d::/)?.index; },
-  tokenizer(src) {
-    const rule = /^{{c\d::.*}}/;
-    const match = rule.exec(src);
-    if (match) {
-      return {
-        type: 'ankiCloze',
-        raw: match[0],
-        text: '[...]'
-      };
-    }
-  },
-  renderer(token) {
-    return `<span class="ankiCloze">${token.text}</span>`;
-  }
-};
-
-marked.use({ extensions: [ankiExtension2, ankiExtension1] });
+marked.use({ extensions: [ankiExtension] });
 
 } catch (error) { 
     console.log(error)
