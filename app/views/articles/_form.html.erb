@@ -81,6 +81,57 @@
   
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script defer>
+try {
+const ankiExtension1 = {
+  name: 'ankiNote',
+  level: 'inline',
+  start(src) { return src.match(/\[\[/)?.index; },
+  tokenizer(src, tokens) {
+    const rule = /^\[\[.*\]\]/;
+    const match = rule.exec(src);
+    if (match) {
+      return {
+        type: 'ankiNote',
+        raw: match[0],
+        text: match[0].replace('[[', '').replace(']]', ''),
+        tokens: []
+      };
+    }
+  },
+  renderer(token) {
+    return `<span class="ankiNote">${token.text}</span>`;
+  }
+};
+
+const ankiExtension2 = {
+  name: 'ankiCloze',
+  level: 'inline',
+  start(src) { return src.match(/{{c\d::/)?.index; },
+  tokenizer(src) {
+    const rule = /^{{c\d::.*}}/;
+    const match = rule.exec(src);
+    if (match) {
+      return {
+        type: 'ankiCloze',
+        raw: match[0],
+        text: '[...]'
+      };
+    }
+  },
+  renderer(token) {
+    return `<span class="ankiCloze">${token.text}</span>`;
+  }
+};
+
+marked.use({ extensions: [ankiExtension2, ankiExtension1] });
+
+} catch (error) { 
+    console.log(error)
+} 
+</script>
+
 <script>
 try {
   const textArea = document.querySelector("#markdown-editor");
@@ -88,7 +139,7 @@ try {
   const updatePreviewButton = document.querySelector("#update-preview-button");
 
   function updatePreview(){
-    preview.innerText = textArea.value;
+    preview.innerHTML = marked.parse(textArea.value);
   }
   updatePreview();
 
