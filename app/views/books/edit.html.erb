@@ -1,4 +1,4 @@
-<h1 class="p-4 text-2xl">Editing book "<%= @book.name %>"</h1>
+<h1 class="p-4 text-2xl">Editing book: '<%= @book.name %>'</h1>
 
 <div class="grid grid-cols-2">
   <div class="bg-white border border-black m-4 p-4 w-fit">
@@ -13,7 +13,7 @@
       <% end %>
     </ul>
       
-    <%= link_to 'New article', new_book_article_path(@book), class: "text-blue-600 underline" %>
+    <%= link_to 'New top-level article', new_book_article_path(@book), class: "text-blue-600 underline" %>
   </div>
 
   <div>
