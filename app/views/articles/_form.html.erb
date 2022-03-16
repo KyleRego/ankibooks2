@@ -64,6 +64,18 @@
           </svg>
         </button>
 
+        <button id="c1-button" class="hover:bg-gray-200 p-1">
+          {{c1::}}
+        </button>
+
+        <button id="c2-button" class="hover:bg-gray-200 p-1">
+          {{c2::}}
+        </button>
+
+        <button id="anki-note-button" class="hover:bg-gray-200 p-2">
+          [[]]
+        </button>
+
       </div>
 
       <%= f.text_area :content, class: "block w-full h-96 min-h-full resize-none", id: "markdown-editor" %>
@@ -134,6 +146,10 @@ try {
   const italicizeButton = document.querySelector("#italicize-button");
   const boldButton = document.querySelector("#bold-button");
   const codeButton = document.querySelector("#code-button");
+
+  const c1Button = document.querySelector("#c1-button");
+  const c2Button = document.querySelector("#c2-button");
+  const ankiNoteButton = document.querySelector("#anki-note-button");
   
   // writes text1 to the start of the selection and text2 at the end of the selection
   function writeTextToMarkdownEditor(text1, text2="") {
@@ -158,6 +174,9 @@ try {
   addClickEventToMarkdownEditorButton(italicizeButton, "*", "*");
   addClickEventToMarkdownEditorButton(boldButton, "**", "**");
   addClickEventToMarkdownEditorButton(codeButton, "`", "`");
+  addClickEventToMarkdownEditorButton(c1Button, "{{c1::", "}}")
+  addClickEventToMarkdownEditorButton(c2Button, "{{c2::", "}}")
+  addClickEventToMarkdownEditorButton(ankiNoteButton, "[[", "]]")
   
 } catch (error) {
   console.log(error);
