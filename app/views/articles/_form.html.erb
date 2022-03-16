@@ -107,7 +107,7 @@ const ankiExtension = {
       return {
         type: 'ankiNote',
         raw: match[0],
-        text: match[0].replace('[[', '').replace(']]', '').replace(/{{c\d::(.*)}}/, "<span class='ankiCloze'>$1</span>"),
+        text: match[0].replace('[[', '').replace(']]', '').replace(/{{c\d::(.*?)}}/g, "<span class='ankiCloze'>$1</span>"),
         tokens: []
       };
     }
