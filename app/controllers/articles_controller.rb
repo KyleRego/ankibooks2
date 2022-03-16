@@ -24,7 +24,12 @@ class ArticlesController < ApplicationController
       flash[:success] = "Article successfully created."
       redirect_to edit_book_path(@book)
     else
-      render :new, status: :unprocessable_entity
+      if article_params[:parent_id]
+        @parent_article = @book.articles.find(article_params[:parent_id])
+        render :new_subarticle, status: :unprocessable_entity
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
