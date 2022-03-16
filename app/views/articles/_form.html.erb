@@ -89,7 +89,7 @@ const ankiExtension = {
   level: 'inline',
   start(src) { return src.match(/\[\[/)?.index; },
   tokenizer(src, tokens) {
-    const rule = /^\[\[.*\]\]/;
+    const rule = /^\[\[.*?\]\]/;
     const match = rule.exec(src);
     if (match) {
       return {
