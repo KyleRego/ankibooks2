@@ -1,0 +1,9 @@
+<%= form_with url: bookuser_new_path, method: :post, class: "flex flex-col min-w-lg m-auto" do |form| %>
+
+  <p>Enter the username (not email) of the user you would like to share this book with.</p>
+
+  <input type="hidden" value="<%= @book.id %>" name="book_id">
+  <%= form.label :name, "Name:" %>
+  <%= form.text_field :name, class: "border border-black" %>
+  <%= form.submit "Submit", class: "cursor-pointer w-fit m-auto text-white rounded shadow bg-blue-600 mt-4 p-2" %>
+<% end %>

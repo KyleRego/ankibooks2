@@ -42,6 +42,19 @@ class BooksController < ApplicationController
     redirect_to user, status: :see_other
   end
 
+  def new_book_user
+    user = current_user
+    book = user.books.find(params[:book_id])
+    begin
+      user_book_was_shared_with = User.find_by(name: params[:name])
+      user_book_was_shared_with.books << book
+      flash[:success] = "Book successfully shared with #{user_book_was_shared_with.name}."
+    rescue
+      flash[:error] = "User was not found; book not shared."
+    end
+    redirect_to edit_book_path(book)
+  end
+
   private
 
   def book_params
