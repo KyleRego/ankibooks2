@@ -10,6 +10,7 @@ class SharingBookTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'books/edit'
     assert_equal "Book successfully shared with user.", flash[:success]
+    assert_includes users(:user).books, book
   end
 
   test 'should not share a book with an invalid username' do
