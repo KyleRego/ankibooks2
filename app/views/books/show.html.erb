@@ -31,13 +31,11 @@ h1, h2, h3, h4, h5, h6 {
 #article-content-div li {
   list-style: inside;
 }
-
-
 </style>
 
-<div class="flex flex-row justify-between min-h-screen">
+<div class="sm:grid sm:grid-cols-4 min-h-screen">
   
-  <div class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-fit h-fit">
+  <div class="bg-white col-span-1 border border-black shadow-md rounded-md m-4 p-4">
 
     <h1 id="title-for-book-with-id-<%= @book.id %>" class="book-title text-center text-2xl border-b border-black pb-4 mb-4">
       <%= @book.name %>
@@ -51,38 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 
   </div>
 
-  <div id="article-content-div" class="bg-white border border-black shadow-md rounded-md m-4 p-4 w-full">
+  <div id="article-content-div" class="bg-white border col-span-3 border-black shadow-md rounded-md m-4 p-4">
   </div>
 
 </div>
-
-<script>
-try {
-  let book_id = document.querySelector('.book-title').id.split('-')[5];
-  let initial_article_id = document.querySelectorAll(".reader-article-tree-parts")[0].id.split('-')[7];
-  let articleContentDiv = document.querySelector("#article-content-div");
-  let readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
-
-  
-  function loadArticleContent(book_id, article_id){
-    let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`)
-    fetchResponsePromise
-    .then(response => response.json())
-    .then(function(data){
-      articleContentDiv.innerHTML = data["content"];
-    })
-  }
-
-  loadArticleContent(book_id, initial_article_id);
-
-  readerArticleTreeParts.forEach(function(element) {
-    element.addEventListener('click', function(){
-      let article_id = element.id.split('-')[7];
-      loadArticleContent(book_id, article_id);
-    });
-  });
-
-} catch(error) {
-  console.log(error);
-}
-</script>
