@@ -3,9 +3,12 @@
   <section>
   <h1 class="p-4 text-2xl">Editing book: '<%= @book.name %>'</h1>
     <div class="bg-white border border-black mx-4 p-4 max-w-full">
-      <h2 class="text-2xl border-b border-black pb-4 mb-4">
-        Edit articles:
-      </h2>
+      <div class="flex items-center border-b border-black mb-4 pb-4">
+        <h2 class="text-2xl">
+          Edit or add articles:
+        </h2>
+        <%= link_to 'New top-level article', new_book_article_path(@book), class: "bg-blue-600 rounded-md text-white ml-4 p-2" %>
+      </div>
 
       <ul>
         <% @book.top_level_articles.each do |top_level_article| %>
@@ -13,15 +16,15 @@
         <% end %>
       </ul>
         
-      <%= link_to 'New top-level article', new_book_article_path(@book), class: "text-blue-600 underline" %>
+      
     </div>
   </section>
 
   <section>
     <h1 class="p-4 text-2xl">Book details:</h1>
-    <div class="bg-white border border-black mx-4 p-4 max-w-full flex items-center">
+    <div class="max-w-full flex items-center">
       <%= render 'form' %>
-      <%= link_to "Delete book", book_path(@book), class: "p-2 ml-4 mt-4 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <%= link_to "Delete Book", book_path(@book), class: "p-2 ml-4 mt-4 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     </div>
   </section>
 </div>

@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
 
   def update # PATCH /books/:book_id/articles/:id
     @book = current_user.books.find_by(params[:book_id])
-    @article = @book.articles.find_by(params[:id])
+    @article = @book.articles.find(params[:id])
     if @article.update(article_params)
       flash[:success] = "Article successfully updated."
       redirect_to edit_book_path(@book)
@@ -51,7 +51,7 @@ class ArticlesController < ApplicationController
 
   def destroy # DELETE /books/:book_id/articles/:id
     user = current_user
-    book = user.books.find_by(params[:book_id])
+    book = user.books.find(params[:book_id])
     article = book.articles.find(params[:id])
     article.destroy
     flash[:success] = "Article successfully deleted."
