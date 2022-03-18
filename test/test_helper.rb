@@ -26,4 +26,12 @@ class ActiveSupport::TestCase
   def current_user_for_test
     users(:kyle)
   end
+
+  def fixture_user_user
+    users(:user)
+  end
+
+  def fixture_user_user2
+    users(:user2)
+  end
 end

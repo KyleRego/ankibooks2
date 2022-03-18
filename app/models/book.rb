@@ -12,4 +12,17 @@ class Book < ApplicationRecord
       article.parent_id.nil?
     end
   end
+
+  # returns the role (as a string) for the book and user
+  def role(user)
+    role_id = self.book_users.where("user_id = #{user.id}").first.role_id
+    case role_id
+    when 1
+      'owner'
+    when 2
+      'editor'
+    when 3
+      'reader'
+    end
+  end
 end

@@ -6,15 +6,15 @@
   <%= form.label :name, "Name:" %>
   <%= form.text_field :name, class: "border border-black" %>
   <div>
-    <input type="radio" id="reader-role-radio-button" name="role" value="reader" checked>
+    <input type="radio" id="reader-role-radio-button" name="role_id" value="1" checked>
     <label for="reader-role-radio-button">Reader</label>
   </div>
   <div>
-    <input type="radio" id="editor-role-radio-button" name="role" value="editor">
+    <input type="radio" id="editor-role-radio-button" name="role_id" value="2">
     <label for="editor-role-radio-button">Editor</label>
   </div>
   <div>
-    <input type="radio" id="owner-role-radio-button" name="role" value="owner">
+    <input type="radio" id="owner-role-radio-button" name="role_id" value="3">
     <label for="owner-role-radio-button">Owner</label>
   </div>
   <%= form.submit "Submit", class: "cursor-pointer w-fit m-auto text-white rounded shadow bg-blue-600 mt-4 p-2" %>

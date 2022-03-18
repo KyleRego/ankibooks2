@@ -2,7 +2,7 @@ require "test_helper"
 
 class BookCreationTest < ActionDispatch::IntegrationTest
   test 'should make a new book if logged in' do
-    log_in_for_test
+    log_in_for_test # logs in as the fixture user kyle
     get new_book_path
     assert_difference 'Book.count', 1 do
       post books_path, params: { book: { name: "Book Name",
@@ -10,6 +10,8 @@ class BookCreationTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_template :show
+    book = current_user_for_test.books.where("name = 'Book Name'").first
+    assert_equal 'owner', book.role(current_user_for_test)
   end
 
   test 'should not make a new book without a name' do
