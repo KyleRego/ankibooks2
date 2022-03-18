@@ -52,13 +52,13 @@ class BooksController < ApplicationController
 
   def new_book_user # POST /bookuser/new
     user = current_user
-    book = user.books.find(params[:book_id])
+    book = user.books.find(book_user_params[:book_id])
     if user.owns_book?(book)
       begin
-        user_book_was_shared_with = User.find_by(name: params[:name])
+        user_book_was_shared_with = User.find_by(name: book_user_params[:name])
         unless user_book_was_shared_with.books.include?(book)
           user_book_was_shared_with.books << book
-          role_id = params[:role_id].to_i
+          role_id = book_user_params[:role_id].to_i
           book_user = book.book_users.where(["book_id = ? and user_id = ?", book.id, user_book_was_shared_with.id]).first
           book_user.role_id = role_id if (1...3).cover?(role_id)
           book_user.save
@@ -79,5 +79,9 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:name, :description)
+  end
+
+  def book_user_params
+    params.permit(:name, :book_id, :role_id)
   end
 end
