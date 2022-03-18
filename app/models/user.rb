@@ -22,4 +22,9 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end  
+
+  # returns true if self is an owner of the given book
+  def owns_book?(book)
+    book.role(self) == 'owner'
+  end
 end

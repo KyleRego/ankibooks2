@@ -75,4 +75,16 @@ class SharingBookTest < ActionDispatch::IntegrationTest
     assert_template 'books/edit'
     assert_equal 'editor', book.role(fixture_user_user2)
   end
+
+  test 'fixture user kyle should not be able to share a book they do not own' do
+    log_in_for_test
+    book = books(:three)
+    assert_equal 'reader', book.role(current_user_for_test)
+    post bookuser_new_path, params: { book_id: book.id,
+                                      name: fixture_user_user2.name,
+                                      role_id: "1" }
+    follow_redirect!
+    assert_template 'books/edit'
+    assert_equal "You may not share a book that you do not own.", flash[:error]
+  end
 end

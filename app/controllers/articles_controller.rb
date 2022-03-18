@@ -53,8 +53,12 @@ class ArticlesController < ApplicationController
     user = current_user
     book = user.books.find(params[:book_id])
     article = book.articles.find(params[:id])
-    article.destroy
-    flash[:success] = "Article successfully deleted."
+    if user.owns_book?(book)
+      article.destroy
+      flash[:success] = "Article successfully deleted."
+    else
+      raise ActiveRecord::RecordNotFound
+    end
     redirect_to book_path(book), status: :see_other
   end
 

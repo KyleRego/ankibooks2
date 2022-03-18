@@ -27,3 +27,9 @@ five:
   user_id: 2
   book_id: 2
   role_id: 3 # Book belongs to user and their role is reader
+
+six:
+  id: 6
+  user_id: 1
+  book_id: 3
+  role_id: 3 # Book belongs to kyle and their role is reader

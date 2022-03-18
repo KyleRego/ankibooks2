@@ -21,7 +21,7 @@ class BookDeletionTest < ActionDispatch::IntegrationTest
 
   test 'should not be able to delete another users book' do
     log_in_for_test
-    book = books(:book_three)
+    book = books(:three)
     assert_raise ActiveRecord::RecordNotFound do
       delete book_path(book.id)
     end

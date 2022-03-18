@@ -15,4 +15,12 @@ class BookTest < ActiveSupport::TestCase
     book = books(:two)
     assert_equal 'reader', book.role(users(:user))
   end
+
+  test 'owns_book? should return true for fixture book 1 and kyle' do
+    assert current_user_for_test.owns_book?(books(:one))
+  end
+
+  test 'owns_book? should return false for fixture book 1 and user' do
+    refute fixture_user_user.owns_book?(books(:one))
+  end
 end
