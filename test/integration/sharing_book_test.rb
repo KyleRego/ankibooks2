@@ -1,20 +1,6 @@
 require "test_helper"
 
 class SharingBookTest < ActionDispatch::IntegrationTest
-  test 'should share a book from fixture users "kyle" to "user"' do
-    log_in_for_test
-    book = books(:one)
-    get "/books/#{book.id}/edit"
-    post bookuser_new_path, params: { book_id: book.id,
-                                      name: "user",
-                                      role_id: "1" }
-    follow_redirect!
-    assert_template 'books/edit'
-    assert_equal "Book successfully shared with user.", flash[:success]
-    assert_includes users(:user).books, book
-    assert_equal 'owner', book.role(fixture_user_user)
-  end
-
   test 'should not share a book with an invalid username' do
     log_in_for_test
     book = books(:one)
@@ -59,7 +45,7 @@ class SharingBookTest < ActionDispatch::IntegrationTest
     assert_equal 'owner', book.role(fixture_user_user2)
   end
 
-  test 'should share the book with fixture user2 as a reader and then reshare as an editor' do
+  test 'should share the book with fixture user2 as a reader and then fail to reshare as an editor' do
     log_in_for_test
     book = books(:one)
     post bookuser_new_path, params: { book_id: book.id,
@@ -68,12 +54,15 @@ class SharingBookTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'books/edit'
     assert_equal 'reader', book.role(fixture_user_user2)
-    post bookuser_new_path, params: { book_id: book.id,
-                                      name: fixture_user_user2.name,
-                                      role_id: "2" }
+    assert_no_difference 'BookUser.count' do
+      post bookuser_new_path, params: { book_id: book.id,
+                                        name: fixture_user_user2.name,
+                                        role_id: "2" }
+    end
     follow_redirect!
     assert_template 'books/edit'
-    assert_equal 'editor', book.role(fixture_user_user2)
+    assert_equal "You cannot share a book with a user who already has the book.", flash[:error]
+    assert_equal 'reader', book.role(fixture_user_user2)
   end
 
   test 'fixture user kyle should not be able to share a book they do not own' do

@@ -57,6 +57,7 @@ class ArticlesController < ApplicationController
       article.destroy
       flash[:success] = "Article successfully deleted."
     else
+      # raise the same error as if the book couldnt be found
       raise ActiveRecord::RecordNotFound
     end
     redirect_to book_path(book), status: :see_other
