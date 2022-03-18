@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SharingBookTest < ActionDispatch::IntegrationTest
+class BookSharingTest < ActionDispatch::IntegrationTest
   test 'should not share a book with an invalid username' do
     log_in_for_test
     book = books(:one)

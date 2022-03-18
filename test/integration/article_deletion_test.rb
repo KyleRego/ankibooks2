@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ArticlesDeletionTest < ActionDispatch::IntegrationTest
+class ArticleDeletionTest < ActionDispatch::IntegrationTest
   test 'should delete fixture article 1 which has one subarticle' do
     log_in_for_test
     book = books(:one)
