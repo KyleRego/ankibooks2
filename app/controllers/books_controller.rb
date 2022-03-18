@@ -42,7 +42,7 @@ class BooksController < ApplicationController
     redirect_to user, status: :see_other
   end
 
-  def new_book_user
+  def new_book_user # POST /bookuser/new
     user = current_user
     book = user.books.find(params[:book_id])
     begin
