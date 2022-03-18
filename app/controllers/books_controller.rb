@@ -23,6 +23,7 @@ class BooksController < ApplicationController
     user = current_user
     if user && @book.save
       user.books << @book
+      @book.book_users.first.role_id = 1
       flash[:success] = "New book '#{@book.name}' created."
       redirect_to @book
     else
