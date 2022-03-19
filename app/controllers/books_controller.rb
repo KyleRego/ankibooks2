@@ -75,6 +75,18 @@ class BooksController < ApplicationController
     redirect_to edit_book_path(book)
   end
 
+  def destroy_book_user # DELETE /bookuser/:id
+    user = current_user
+    book_user = BookUser.find_by(id: params[:id])
+    if book_user.user_id == user.id
+      book_user.destroy
+      flash[:success] = "Book successfully removed."
+    else
+      flash[:error] = "You cannot remove a book from a different user."
+    end
+    redirect_to user, status: :see_other
+  end
+
   private
 
   def book_params

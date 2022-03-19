@@ -32,11 +32,9 @@
             Read
           </a></li>
 
-          <% if @user.can_edit?(book) %>
-            <li><a class="underline text-blue-600" href="/books/<%= book.id %>/edit">
-              Edit
-            </a></li>
-          <% end %>
+          <li><a class="underline text-blue-600" href="/books/<%= book.id %>/edit">
+            Edit
+          </a></li>
         </ul>
       </li>
     <% end %>

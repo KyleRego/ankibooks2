@@ -1,5 +1,6 @@
 require "test_helper"
 
+# we also have tests here covering removing the book from a user (not deleting)
 class BookSharingTest < ActionDispatch::IntegrationTest
   test 'should not share a book with an invalid username' do
     log_in_for_test(users(:kyle))
@@ -100,5 +101,27 @@ class BookSharingTest < ActionDispatch::IntegrationTest
                                       role_id: "1" }
     assert_equal "Book successfully shared with user", flash[:success]
     assert_includes users(:user).books, book
+  end
+
+  test 'should remove a book by destroying the book_user' do
+    log_in_for_test(users(:kyle)) # Book three belongs to kyle and their role is reader
+    book_user = book_users(:six)
+    assert_difference 'BookUser.count', -1 do
+      delete "/bookuser/#{book_user.id}"
+    end
+    follow_redirect!
+    assert_equal 'Book successfully removed.', flash[:success]
+    assert_template 'users/show'
+  end
+
+  test 'should not be able to remove the book of a different user' do
+    log_in_for_test(users(:user)) 
+    book_user = book_users(:six)
+    assert_no_difference 'BookUser.count' do
+      delete "/bookuser/#{book_user.id}"
+    end
+    follow_redirect!
+    assert_equal "You cannot remove a book from a different user.", flash[:error]
+    assert_template 'users/show'
   end
 end

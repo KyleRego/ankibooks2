@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   post '/bookuser/new', to: 'books#new_book_user'
+  delete '/bookuser/:id', to: 'books#destroy_book_user'
 
   resources :users
 
