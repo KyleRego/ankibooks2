@@ -31,6 +31,12 @@ class ActiveSupport::TestCase
     users(:user)
   end
 
+  def log_in_for_test_as_user2
+    user = fixture_user_user2
+    post login_path, params: { session: { email: user.email,
+                                          password: 'password' } }
+  end
+
   def fixture_user_user2
     users(:user2)
   end
