@@ -1,9 +1,9 @@
 <% if @user.can_edit?(@book) %>
 
-
-    <section>
-    <h1 class="p-4 text-2xl">Editing book: '<%= @book.name %>'</h1>
-      <div class="bg-white border border-black mx-4 p-4 max-w-fit">
+  <div class="flex justify-start">
+    <section class="p-4">
+    <h1 class="text-2xl mb-4">Editing book: '<%= @book.name %>'</h1>
+      <div class="bg-white border border-black min-w-max p-4">
         <div class="flex items-center border-b border-black mb-4 pb-4">
           <h2 class="text-2xl">
             Edit or add articles:
@@ -21,23 +21,25 @@
       </div>
     </section>
     
-    <section class="mt-4 p-4">
-      
-        <div class="max-w-fit flex justify-between space-x-1.5 items-center">
-          <% if @user.owns_book?(@book) %>
-            <button id="show-update-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Update Book Details</button>
-            <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
-            <%= link_to "Delete Book", book_path(@book), class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-          <% end %>
-          <%= link_to "Remove Book", "/bookuser/#{@user.book_users.find_by(book_id: @book.id).id}", class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </div>
+    <% if @user.owns_book?(@book) %>
+      <section class="p-4">
+        <h1 class="text-2xl mb-4">Book Details:</h1>
+        <%= render partial: "form" %>
+          
+      </section>
+    <% end %>
+  </div>
 
-    </section>
-
+  <div class="max-w-fit flex justify-between space-x-1.5 items-center p-4">
+    <% if @user.owns_book?(@book) %>
+      <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
+      <%= link_to "Delete Book", book_path(@book), class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <% end %>
+      <%= link_to "Remove Book", "/bookuser/#{@user.book_users.find_by(book_id: @book.id).id}", class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  </div>
 
   <%= render partial: "share_book_form", layout: "shared/modal", locals: {label: "share-book"} %>
-  <%= render partial: "form", layout: "shared/modal", locals: {label: "update-book"} %>
-
+  
   <script>
   document.getElementById("show-share-book-modal-btn").addEventListener('click', function() {
     document.getElementById('share-book-modal').style.display = "block";
@@ -45,14 +47,6 @@
 
   document.getElementById("share-book-modal-close-btn").addEventListener('click', function() {
     document.getElementById('share-book-modal').style.display = "none";
-  })
-
-  document.getElementById("show-update-book-modal-btn").addEventListener('click', function() {
-    document.getElementById('update-book-modal').style.display = "block";
-  })
-
-  document.getElementById("update-book-modal-close-btn").addEventListener('click', function() {
-    document.getElementById('update-book-modal').style.display = "none";
   })
 
   </script>

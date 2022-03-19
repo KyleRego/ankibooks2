@@ -16,7 +16,7 @@ class BooksController < ApplicationController
       redirect_to @user
     elsif @user && @book.update(book_params)
       flash[:success] = "Book successfully updated."
-      redirect_to @book
+      redirect_to edit_book_path(@book)
     else
       render :edit, status: :unprocessable_entity
     end

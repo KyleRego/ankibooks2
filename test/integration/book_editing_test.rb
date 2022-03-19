@@ -8,7 +8,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
     patch book_path(book.id), params: { book: { name: "New book name",
                                                     description: "New description" } }
     follow_redirect!
-    assert_template "books/show"
+    assert_template "books/edit"
     assert_equal "Book successfully updated.", flash[:success]
   end
 
