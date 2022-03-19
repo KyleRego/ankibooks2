@@ -17,10 +17,13 @@ class ArticlesController < ApplicationController
   end
 
   def create #  POST /books/:book_id/articles
-    @book = current_user.books.find_by(id: params[:book_id])
+    user = current_user
+    @book = user.books.find_by(id: params[:book_id])
     @article = @book.articles.new(article_params)
-
-    if @article.save
+    if !user.can_edit?(@book)
+      flash[:error] = "You cannot add an article to this book."
+      redirect_to user
+    elsif @article.save
       flash[:success] = "Article successfully created."
       redirect_to edit_book_path(@book)
     else
@@ -56,14 +59,14 @@ class ArticlesController < ApplicationController
     user = current_user
     book = user.books.find(params[:book_id])
     article = book.articles.find(params[:id])
-    if user.owns_book?(book)
+    if user.can_edit?(book)
       article.destroy
       flash[:success] = "Article successfully deleted."
     else
       # raise the same error as if the book couldnt be found
       raise ActiveRecord::RecordNotFound
     end
-    redirect_to book_path(book), status: :see_other
+    redirect_to edit_book_path(book), status: :see_other
   end
 
   private
