@@ -39,7 +39,8 @@ class ArticlesController < ApplicationController
   end
 
   def update # PATCH /books/:book_id/articles/:id
-    @book = current_user.books.find_by(params[:book_id])
+    user = current_user
+    @book = user.books.find_by(params[:book_id])
     @article = @book.articles.find(params[:id])
     if @article.update(article_params)
       flash[:success] = "Article successfully updated."

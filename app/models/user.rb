@@ -27,4 +27,10 @@ class User < ApplicationRecord
   def owns_book?(book)
     book.role(self) == 'owner'
   end
+
+  # returns true if self is an owner or editor of the book
+  def can_edit?(book)
+    role = book.role(self)
+    role == 'owner' || role == 'editor'
+  end
 end

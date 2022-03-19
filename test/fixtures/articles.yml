@@ -19,3 +19,4 @@ three:
   name: Fixture Article 3
   content: This test article belongs to book 3, which belongs to user
   book_id: 3
+  parent_id: null

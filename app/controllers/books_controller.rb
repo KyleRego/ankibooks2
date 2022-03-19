@@ -53,24 +53,20 @@ class BooksController < ApplicationController
   def new_book_user # POST /bookuser/new
     user = current_user
     book = user.books.find(book_user_params[:book_id])
-    if user.owns_book?(book)
-      begin
-        user_book_was_shared_with = User.find_by(name: book_user_params[:name])
-        unless user_book_was_shared_with.books.include?(book)
-          user_book_was_shared_with.books << book
-          role_id = book_user_params[:role_id].to_i
-          book_user = book.book_users.where(["book_id = ? and user_id = ?", book.id, user_book_was_shared_with.id]).first
-          book_user.role_id = role_id if (1...3).cover?(role_id)
-          book_user.save
-          flash[:success] = "Book successfully shared with #{user_book_was_shared_with.name}."
-        else
-          flash[:error] = "You cannot share a book with a user who already has the book."
-        end
-      rescue
-        flash[:error] = "User was not found; book not shared."
-      end
-    else
+    user_book_was_shared_with = User.find_by(name: book_user_params[:name])
+    role_id = book_user_params[:role_id].to_i
+    if !user_book_was_shared_with
+      flash[:error] = "User was not found; book not shared."
+    elsif !user.owns_book?(book)
       flash[:error] = "You may not share a book that you do not own."
+    elsif user_book_was_shared_with.books.include?(book)
+      flash[:error] = "You cannot share a book with a user who already has the book."
+    elsif (1..3).cover?(role_id)
+      user_book_was_shared_with.books << book
+      book_user = book.book_users.where(["book_id = ? and user_id = ?", book.id, user_book_was_shared_with.id]).first
+      book_user.role_id = role_id
+      book_user.save
+      flash[:success] = "Book successfully shared with #{user_book_was_shared_with.name}"
     end
     redirect_to edit_book_path(book)
   end
