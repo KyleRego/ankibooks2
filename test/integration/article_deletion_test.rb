@@ -10,7 +10,7 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
     end
     assert_response :redirect
     follow_redirect!
-    assert_template 'books/show'
+    assert_template 'books/edit'
     assert_equal 'Article successfully deleted.', flash[:success]
   end
 
@@ -23,7 +23,7 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
     end
     assert_response :redirect
     follow_redirect!
-    assert_template 'books/show'
+    assert_template 'books/edit'
     assert_equal 'Article successfully deleted.', flash[:success]
   end
 
@@ -38,12 +38,24 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
     assert_equal 'You must be logged in to access this section', flash[:error]
   end
 
-  test 'logged in user should not be able to delete another users book' do
-    log_in_for_test(users(:kyle))
-    book = books(:three)
-    article = articles(:three)
+  test 'a reader of a book should not be able to delete an article' do
+    log_in_for_test(users(:user)) # Book two belongs to user and their role is reader
+    book = books(:two)
+    article = articles(:four)
     assert_raise ActiveRecord::RecordNotFound do
       delete book_article_path(book, article)
     end
+  end
+
+  test 'an editor of a book should be able to delete an article' do
+    log_in_for_test(users(:user)) # Book one belongs to user and their role is editor
+    book = books(:one)
+    article = articles(:two)
+    assert_difference 'Article.count', -1 do
+      delete book_article_path(book, article)
+    end
+    follow_redirect!
+    assert_template 'books/edit'
+    assert_equal "Article successfully deleted.", flash[:success]
   end
 end

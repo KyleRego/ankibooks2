@@ -50,5 +50,24 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_equal "Article successfully created.", flash[:success]
     assert_template 'books/edit'
-  end    
+  end
+  
+  test 'should not be able to make an article for a book that doesnt belong to them' do
+    log_in_for_test(users(:user2)) # Book 1 does not have a relationship with user2
+    book = books(:one)
+    assert_raise "NoMethodError" do
+      post book_articles_path(book), params: { article: { name: "name",
+                                                          content: "content" } }
+    end
+  end
+
+  test 'should not be able to make an article for a book as a reader of the book' do
+    log_in_for_test(users(:user)) # Book two belongs to user and their role is reader
+    book = books(:two)
+    assert_no_difference 'Article.count' do
+      post book_articles_path(book), params: { article: { name: "name",
+                                                          content: "content" } }
+    end
+    assert_equal "You cannot add an article to this book.", flash[:error]
+  end
 end

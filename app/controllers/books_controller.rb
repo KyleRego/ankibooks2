@@ -10,7 +10,10 @@ class BooksController < ApplicationController
   def update # PATCH /books/:id
     user = current_user
     @book = user.books.find(params[:id])
-    if user && @book.update(book_params)
+    if !user.owns_book?(@book)
+      flash[:error] = 'You cannot update this book.'
+      redirect_to user
+    elsif user && @book.update(book_params)
       flash[:success] = "Book successfully updated."
       redirect_to @book
     else

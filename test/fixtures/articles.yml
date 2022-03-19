@@ -20,3 +20,10 @@ three:
   content: This test article belongs to book 3, which belongs to user
   book_id: 3
   parent_id: null
+
+four:
+  id: 4
+  name: Fixture Article 4
+  content: This test article belongs to book two
+  book_id: 2
+  parent_id: null
