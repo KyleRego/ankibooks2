@@ -47,6 +47,7 @@ class ArticlesController < ApplicationController
     @article = @book.articles.find(params[:id])
     if !user.can_edit?(@book)
       flash[:error] = "You cannot update the articles of this book."
+      redirect_to user
     elsif @article.update(article_params)
       flash[:success] = "Article successfully updated."
       redirect_to edit_book_path(@book)

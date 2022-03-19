@@ -24,13 +24,19 @@
             <%= book.description %>
           </li>
 
+          <li>
+            Your role: <%= book.role(@user) %>
+          </lI>
+
           <li><a class="underline text-blue-600" href="/books/<%= book.id %>">
             Read
           </a></li>
 
-          <li><a class="underline text-blue-600" href="/books/<%= book.id %>/edit">
-            Edit
-          </a></li>
+          <% if @user.can_edit?(book) %>
+            <li><a class="underline text-blue-600" href="/books/<%= book.id %>/edit">
+              Edit
+            </a></li>
+          <% end %>
         </ul>
       </li>
     <% end %>

@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   end
 
   def edit # GET /books/:id/edit
+    @user = current_user
     @book = current_user.books.find(params[:id])
   end
 

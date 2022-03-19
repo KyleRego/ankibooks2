@@ -1,6 +1,7 @@
 <%= form_with url: bookuser_new_path, method: :post, class: "flex flex-col m-auto max-w-lg" do |form| %>
 
   <p>Enter the username (not email) of the user you would like to share this book with, and choose the role you would like the user to have for the book.</p>
+  <p>Note that an owner will have equal permissions as you do (e.g. deleting the book). An editor will be able to add, edit, and delete articles of the book.</p>
 
   <input type="hidden" value="<%= @book.id %>" name="book_id">
   <%= form.label :name, "Name:" %>

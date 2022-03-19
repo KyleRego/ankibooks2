@@ -19,18 +19,22 @@
       
     </div>
   </section>
-
+  
   <section>
-    <h1 class="p-4 text-2xl">Book details:</h1>
-    <div class="max-w-full flex items-center">
-      <%= render 'form' %>
-      <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
-      <%= link_to "Delete Book", book_path(@book), class: "p-2 ml-4 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    </div>
+  <% if @user.owns_book?(@book) %>
+      <h1 class="p-4 text-2xl">Book details:</h1>
+      <div class="max-w-full flex items-center">
+        <%= render 'form' %>
+        <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
+        <%= link_to "Delete Book", book_path(@book), class: "p-2 ml-4 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
+  <% end %>
   </section>
 </div>
 
-<%= render partial: "share_book_form", layout: "shared/modal", locals: {label: "share-book"} %>
+<% if @user.owns_book?(@book) %>
+  <%= render partial: "share_book_form", layout: "shared/modal", locals: {label: "share-book"} %>
+<% end %>
 
 <script>
 document.getElementById("show-share-book-modal-btn").addEventListener('click', function() {
