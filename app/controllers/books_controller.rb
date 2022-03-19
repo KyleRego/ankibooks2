@@ -78,11 +78,18 @@ class BooksController < ApplicationController
   def destroy_book_user # DELETE /bookuser/:id
     user = current_user
     book_user = BookUser.find_by(id: params[:id])
+    user_to_remove = book_user.user
+    book_to_remove = book_user.book
     if book_user.user_id == user.id
       book_user.destroy
       flash[:success] = "Book successfully removed."
+    elsif user_to_remove.owns_book?(book_to_remove)
+      flash[:error] = "You cannot remove a book from a user who owns the book."
+    elsif user.owns_book?(book_to_remove)
+      book_user.destroy
+      flash[:success] = "Successfully removed the user from the book."
     else
-      flash[:error] = "You cannot remove a book from a different user."
+      flash[:error] = "You cannot remove a user from a book you do not own."
     end
     redirect_to user, status: :see_other
   end

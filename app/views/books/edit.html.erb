@@ -1,8 +1,8 @@
 <% if @user.can_edit?(@book) %>
 
-  <div class="flex justify-start">
+  <div class="lg:flex lg:justify-start">
     <section class="p-4">
-    <h1 class="text-2xl mb-4">Editing book: '<%= @book.name %>'</h1>
+    <h1 class="text-2xl mb-4">Editing Book: '<%= @book.name %>'</h1>
       <div class="bg-white border border-black min-w-max p-4">
         <div class="flex items-center border-b border-black mb-4 pb-4">
           <h2 class="text-2xl">
@@ -26,6 +26,32 @@
         <h1 class="text-2xl mb-4">Book Details:</h1>
         <%= render partial: "form" %>
           
+      </section>
+
+      <section class="p-4">
+        <h1 class="text-2xl mb-4">Other Book Users:</h1>
+        
+          <table class="table-auto bg-white border-collapse">
+          <thead>
+            <tr>
+              <th class="border border-black p-1">Username</th>
+              <th class="border border-black p-1">Role</th>
+              <th class="border border-black p-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @book.users.select {|user| user != @user }.each do |user| %>
+              <tr>
+                <td class="border border-black p-1"><%= user.name %></td>
+                <td class="border border-black p-1"><%= @book.role(user) %></td>
+                <td class="border border-black p-1">
+                  <%= link_to "Remove", "/bookuser/#{user.book_users.find_by(book_id: @book.id).id}", class: "text-red-600 underline", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          </table>
+        
       </section>
     <% end %>
   </div>
