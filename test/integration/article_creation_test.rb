@@ -2,7 +2,7 @@ require "test_helper"
 
 class ArticleCreationTest < ActionDispatch::IntegrationTest
   test 'should make a book and then an article' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     get new_book_path
     post books_path, params: { book: { name: "new book",
                                       description: "new book description" } }
@@ -18,7 +18,7 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not make an article if it does not have a name' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     assert_no_difference 'Article.count' do
       post book_articles_path(book.id), params: { article: { name: "",
@@ -29,7 +29,7 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not make an article if it does not have content' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     assert_no_difference 'Article.count' do
       post book_articles_path(book.id), params: { article: { name: "name",
@@ -40,7 +40,7 @@ class ArticleCreationTest < ActionDispatch::IntegrationTest
   end
   
   test 'should make a subarticle' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     parent_article = articles(:one)
     get "/books/#{book.id}/articles/#{parent_article.id}/new"

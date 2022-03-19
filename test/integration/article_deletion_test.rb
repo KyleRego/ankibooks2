@@ -2,7 +2,7 @@ require "test_helper"
 
 class ArticleDeletionTest < ActionDispatch::IntegrationTest
   test 'should delete fixture article 1 which has one subarticle' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     article = articles(:one)
     assert_difference 'Article.count', -2 do
@@ -15,7 +15,7 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
   end
 
   test 'should delete fixture article 2 which has no subarticles' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     article = articles(:two)
     assert_difference 'Article.count', -1 do
@@ -39,7 +39,7 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
   end
 
   test 'logged in user should not be able to delete another users book' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:three)
     article = articles(:three)
     assert_raise ActiveRecord::RecordNotFound do

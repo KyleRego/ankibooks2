@@ -2,13 +2,13 @@ require "test_helper"
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     get new_book_path
     assert_response :success
   end
 
   test 'should get edit' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     get edit_book_path(book.id)
     assert_response :success

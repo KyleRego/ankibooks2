@@ -17,23 +17,23 @@ class BookTest < ActiveSupport::TestCase
   end
 
   test 'owns_book? should return true for fixture book 1 and kyle' do
-    assert current_user_for_test.owns_book?(books(:one))
+    assert users(:kyle).owns_book?(books(:one))
   end
 
   test 'owns_book? should return false for fixture book 1 and user' do
-    refute fixture_user_user.owns_book?(books(:one))
+    refute users(:user).owns_book?(books(:one))
   end
 
   test 'can_edit? should return true for fixture book 1 and kyle' do
-    assert current_user_for_test.can_edit?(books(:one))
+    assert users(:kyle).can_edit?(books(:one))
   end
 
   test 'can_edit? should return true for fixture book 1 and user' do
-    assert fixture_user_user.can_edit?(books(:one))
+    assert users(:user).can_edit?(books(:one))
   end
 
   test 'can_edit? should return false for fixture book 2 and user' do
-    refute fixture_user_user.can_edit?(books(:two))
+    refute users(:user).can_edit?(books(:two))
   end
 
 end

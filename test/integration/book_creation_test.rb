@@ -2,7 +2,7 @@ require "test_helper"
 
 class BookCreationTest < ActionDispatch::IntegrationTest
   test 'should make a new book if logged in' do
-    log_in_for_test # logs in as the fixture user kyle
+    log_in_for_test(users(:kyle)) # logs in as the fixture user kyle
     get new_book_path
     assert_difference 'Book.count', 1 do
       post books_path, params: { book: { name: "Book Name",
@@ -10,12 +10,12 @@ class BookCreationTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_template :show
-    book = current_user_for_test.books.where("name = 'Book Name'").first
-    assert_equal 'owner', book.role(current_user_for_test)
+    book = users(:kyle).books.where("name = 'Book Name'").first
+    assert_equal 'owner', book.role(users(:kyle))
   end
 
   test 'should not make a new book without a name' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     get new_book_path
     assert_no_difference 'Book.count' do
       post books_path, params: { book: { name: "",
@@ -25,7 +25,7 @@ class BookCreationTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not make a new book without a description' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     get new_book_path
     assert_no_difference 'Book.count' do
       post books_path, params: { book: { name: "Valid book name",
@@ -35,7 +35,7 @@ class BookCreationTest < ActionDispatch::IntegrationTest
   end
 
   test 'should display errors when trying to make a new book without a name or description' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     post books_path, params: { book: { name: "", description: "" } }
     assert_template 'books/new'
     assert_match /This form contains 2 errors./, @response.body

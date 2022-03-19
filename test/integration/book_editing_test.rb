@@ -2,7 +2,7 @@ require "test_helper"
 
 class BookEditingTest < ActionDispatch::IntegrationTest
   test 'should edit a book' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     get edit_book_path(book.id)
     patch book_path(book.id), params: { book: { name: "New book name",
@@ -13,7 +13,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not edit a book if no new name given' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     get edit_book_path(book.id)
     patch book_path(book.id), params: { book: { name: "", 
@@ -23,7 +23,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not edit a book if no description given' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     get edit_book_path(book.id)
     patch book_path(book.id), params: { book: { name: "valid name",
@@ -33,7 +33,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not edit a book if neither name nor description are given' do
-    log_in_for_test
+    log_in_for_test(users(:kyle))
     book = books(:one)
     get edit_book_path(book.id)
     patch book_path(book.id), params: { book: { name: "", description: "" } }
