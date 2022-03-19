@@ -8,7 +8,6 @@ one:
   id: 1
   name: Book 1 Title
   description: Book 1 Description
-#
 
 two:
   id: 2
@@ -18,4 +17,4 @@ two:
 three:
   id: 3
   name: Book 3 Title
-  description: This book belongs to user as an owner and kyle is a reader of it
+  description: Book 3 Description

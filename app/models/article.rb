@@ -13,4 +13,8 @@ class Article < ApplicationRecord
   def has_children?
     subarticles.count != 0
   end
+
+  def to_s
+    "==Article #{self.id}: name: #{self.name}; content: #{self.content}=="
+  end
 end

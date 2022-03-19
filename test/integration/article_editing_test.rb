@@ -6,7 +6,7 @@ class ArticleEditingTest < ActionDispatch::IntegrationTest
     post books_path, params: { book: { name: "Book Name",
                                           description: "Book Description" } }
     book = Book.last
-    post book_articles_path(book.id), params: { article: { name: "Article Name",
+    post book_articles_path(book), params: { article: { name: "Article Name",
                                                           content: "Article Content" } }
     article = Article.last
     assert_equal 'Article Name', article.name
@@ -34,5 +34,14 @@ class ArticleEditingTest < ActionDispatch::IntegrationTest
     patch book_article_path(book, article), params: { article: { name: "new name", content: ""}}
     assert_template 'articles/edit'
     assert_match /This form contains 1 error/, @response.body
+  end
+
+  test 'should not be able to update an article of a book they are a reader of' do
+    log_in_for_test # log in as fixture user kyle
+    book = books(:three) # book 3 belongs to kyle as a reader
+    article = articles(:three) # article 3 is top level article of book 3
+    patch book_article_path(book, article), params: { article: { name: 'new name', content: "new content" } }
+    assert_equal "You cannot update the articles of this book.", flash[:error]
+    assert_equal "Fixture Article 3", article.name
   end
 end

@@ -1,23 +1,23 @@
 class ArticlesController < ApplicationController
   def new # GET /books/:book_id/articles/new
-    @book = current_user.books.find_by(params[:id])
+    @book = current_user.books.find_by(id: params[:book_id])
     @article = Article.new
   end
 
   def new_subarticle # GET /books/:book_id/articles/:parent_id/new
-    @book = current_user.books.find_by(params[:book_id])
+    @book = current_user.books.find_by(id: params[:book_id])
     @parent_article = @book.articles.find(params[:parent_id])
     @article = Article.new
   end
 
   def show # GET /books/:book_id/articles/:id
-    @book = current_user.books.find_by(params[:book_id])
+    @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
     render json: @article
   end
 
   def create #  POST /books/:book_id/articles
-    @book = current_user.books.find_by(params[:book_id])
+    @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.new(article_params)
 
     if @article.save
@@ -34,15 +34,17 @@ class ArticlesController < ApplicationController
   end
 
   def edit # GET /books/:book_id/articles/:id/edit
-    @book = current_user.books.find_by(params[:book_id])
+    @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
   end
 
   def update # PATCH /books/:book_id/articles/:id
     user = current_user
-    @book = user.books.find_by(params[:book_id])
+    @book = user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
-    if @article.update(article_params)
+    if !user.can_edit?(@book)
+      flash[:error] = "You cannot update the articles of this book."
+    elsif @article.update(article_params)
       flash[:success] = "Article successfully updated."
       redirect_to edit_book_path(@book)
     else

@@ -25,4 +25,8 @@ class Book < ApplicationRecord
       'reader'
     end
   end
+
+  def to_s
+    "==Book #{self.id}: name: #{self.name}; description: #{self.description}=="
+  end
 end
