@@ -23,6 +23,10 @@
           </li>
 
           <li>
+            <%= book.is_public ? "Public book" : "Private book" %>
+          </li>
+
+          <li>
             Your role: <%= book.role(@user) %>
           </lI>
 

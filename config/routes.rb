@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   delete '/bookuser/:id', to: 'books#destroy_book_user'
 
   post '/books/:book_id/articles/:article_id/lock', to: 'articles#switch_is_locked'
+  post '/books/:book_id/public', to: 'books#switch_is_public'
 
   resources :users
 

@@ -55,12 +55,26 @@
   <% end %>
 </div>
 
-<div class="max-w-fit flex justify-between space-x-1.5 items-center p-4">
+<div class="max-w-fit flex justify-between space-x-12 items-center p-4">
   <% if @user.owns_book?(@book) %>
+
     <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
+
+    <form action="/books/<%= @book.id %>/public" method="post">
+      <button type="submit" class="p-2 rounded-md bg-blue-600 text-white">
+        <% if @book.is_public %>
+          Make book private
+        <% elsif !@book.is_public %>
+          Make book public
+        <% end %>
+      </button>
+    </form>
+
     <%= link_to "Delete Book", book_path(@book), class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   <% end %>
+
     <%= link_to "Remove Book", "/bookuser/#{@user.book_users.find_by(book_id: @book.id).id}", class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+
 </div>
 
 <%= render partial: "share_book_form", layout: "shared/modal", locals: {label: "share-book"} %>

@@ -103,6 +103,20 @@ class BooksController < ApplicationController
     redirect_to books_path, status: :see_other
   end
 
+  def switch_is_public # POST /books/:book_id/public
+    user = current_user
+    book = user.books.find_by(id: params[:book_id])
+    if user.owns_book?(book)
+      book.is_public = !book.is_public
+      book.save
+      flash[:success] = "Book successfully made public." if book.is_public
+      flash[:success] = "Book successfully made private." unless book.is_public
+    else
+      flash[:error] = "You must be an owner of the book to change its public status."
+    end
+    redirect_to edit_book_path(book)
+  end
+
   private
 
   def book_params
