@@ -12,6 +12,9 @@ class BooksController < ApplicationController
   def edit # GET /books/:id/edit
     @user = current_user
     @book = @user.books.find(params[:id])
+    unless @user.can_edit?(@book)
+      redirect_to books_path
+    end
   end
 
   def update # PATCH /books/:id

@@ -73,7 +73,8 @@ class BookSharingTest < ActionDispatch::IntegrationTest
                                       name: users(:user2).name,
                                       role_id: "1" }
     follow_redirect!
-    assert_template 'books/edit'
+    follow_redirect!
+    assert_template 'books/index'
     assert_equal "You may not share a book that you do not own.", flash[:error]
   end
 

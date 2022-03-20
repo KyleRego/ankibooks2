@@ -56,7 +56,8 @@ class ArticleLockingTest < ActionDispatch::IntegrationTest
     article.reload
     refute article.is_locked
     follow_redirect!
-    assert_template 'books/edit'
+    follow_redirect!
+    assert_template 'books/index'
     assert_equal 'You do not have permission to lock/unlock articles of this book.', flash[:error]
   end
 end

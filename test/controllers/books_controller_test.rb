@@ -10,13 +10,20 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test 'should get edit' do
     log_in_for_test(users(:kyle))
     book = books(:one)
-    get edit_book_path(book.id)
+    get edit_book_path(book)
     assert_response :success
   end
 
   test 'should redirect if trying to access edit book view not logged in' do
     book = books(:one)
-    get edit_book_path(book.id)
+    get edit_book_path(book)
+    assert_response :redirect
+  end
+
+  test 'should not allow a reader to access the edit book view' do
+    log_in_for_test(users(:user)) # Book two belongs to user and their role is reader
+    book = books(:two)
+    get edit_book_path(book)
     assert_response :redirect
   end
 end

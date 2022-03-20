@@ -1,84 +1,79 @@
-<% if @user.can_edit?(@book) %>
-
-  <div class="lg:flex lg:justify-start">
-    <section class="p-4">
-    <h1 class="text-2xl mb-4">Editing Book: '<%= @book.name %>'</h1>
-      <div class="bg-white border border-black min-w-max p-4">
-        <div class="flex items-center border-b border-black mb-4 pb-4">
-          <h2 class="text-2xl">
-            Edit or add articles:
-          </h2>
-          <%= link_to 'New top-level article', new_book_article_path(@book), class: "bg-blue-600 rounded-md text-white ml-4 p-2" %>
-        </div>
-
-        <ul>
-          <% @book.top_level_articles.each do |top_level_article| %>
-            <%= render partial: 'editor_article_tree_part', locals: {article: top_level_article} %>
-          <% end %>
-        </ul>
-          
-        
+<!-- Only editors and owners should be able to see this view -->
+<div class="lg:flex lg:justify-start">
+  <section class="p-4">
+  <h1 class="text-2xl mb-4">Editing Book: '<%= @book.name %>'</h1>
+    <div class="bg-white border border-black min-w-max p-4">
+      <div class="flex items-center border-b border-black mb-4 pb-4">
+        <h2 class="text-2xl">
+          Edit or add articles:
+        </h2>
+        <%= link_to 'New top-level article', new_book_article_path(@book), class: "bg-blue-600 rounded-md text-white ml-4 p-2" %>
       </div>
-    </section>
-    
-    <% if @user.owns_book?(@book) %>
-      <section class="p-4">
-        <h1 class="text-2xl mb-4">Book Details:</h1>
-        <%= render partial: "form" %>
-          
-      </section>
 
-      <section class="p-4">
-        <h1 class="text-2xl mb-4">Other Book Users:</h1>
+      <ul>
+        <% @book.top_level_articles.each do |top_level_article| %>
+          <%= render partial: 'editor_article_tree_part', locals: {article: top_level_article} %>
+        <% end %>
+      </ul>
         
-          <table class="table-auto bg-white border-collapse">
-          <thead>
-            <tr>
-              <th class="border border-black p-1">Username</th>
-              <th class="border border-black p-1">Role</th>
-              <th class="border border-black p-1"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @book.users.select {|user| user != @user }.each do |user| %>
-              <tr>
-                <td class="border border-black p-1"><%= user.name %></td>
-                <td class="border border-black p-1"><%= @book.role(user) %></td>
-                <td class="border border-black p-1">
-                  <%= link_to "Remove", "/bookuser/#{user.book_users.find_by(book_id: @book.id).id}", class: "text-red-600 underline", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-          </table>
-        
-      </section>
-    <% end %>
-  </div>
-
-  <div class="max-w-fit flex justify-between space-x-1.5 items-center p-4">
-    <% if @user.owns_book?(@book) %>
-      <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
-      <%= link_to "Delete Book", book_path(@book), class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    <% end %>
-      <%= link_to "Remove Book", "/bookuser/#{@user.book_users.find_by(book_id: @book.id).id}", class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-  </div>
-
-  <%= render partial: "share_book_form", layout: "shared/modal", locals: {label: "share-book"} %>
+      
+    </div>
+  </section>
   
-  <script>
-  document.getElementById("show-share-book-modal-btn").addEventListener('click', function() {
-    document.getElementById('share-book-modal').style.display = "block";
-  })
+  <% if @user.owns_book?(@book) %>
+    <section class="p-4">
+      <h1 class="text-2xl mb-4">Book Details:</h1>
+      <%= render partial: "form" %>
+        
+    </section>
 
-  document.getElementById("share-book-modal-close-btn").addEventListener('click', function() {
-    document.getElementById('share-book-modal').style.display = "none";
-  })
+    <section class="p-4">
+      <h1 class="text-2xl mb-4">Other Book Users:</h1>
+      
+        <table class="table-auto bg-white border-collapse">
+        <thead>
+          <tr>
+            <th class="border border-black p-1">Username</th>
+            <th class="border border-black p-1">Role</th>
+            <th class="border border-black p-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @book.users.select {|user| user != @user }.each do |user| %>
+            <tr>
+              <td class="border border-black p-1"><%= user.name %></td>
+              <td class="border border-black p-1"><%= @book.role(user) %></td>
+              <td class="border border-black p-1">
+                <%= link_to "Remove", "/bookuser/#{user.book_users.find_by(book_id: @book.id).id}", class: "text-red-600 underline", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        </table>
+      
+    </section>
+  <% end %>
+</div>
 
-  </script>
-<% else %>
-  <h1 class="text-2xl p-4">As a reader of this book, you are not able to edit its articles, however you may remove it from your books.</h2>
-  <div class="flex justify-center">
+<div class="max-w-fit flex justify-between space-x-1.5 items-center p-4">
+  <% if @user.owns_book?(@book) %>
+    <button id="show-share-book-modal-btn" class="bg-blue-600 p-2 rounded-md text-white">Share Book</button>
+    <%= link_to "Delete Book", book_path(@book), class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  <% end %>
     <%= link_to "Remove Book", "/bookuser/#{@user.book_users.find_by(book_id: @book.id).id}", class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-  </div>
+</div>
+
+<%= render partial: "share_book_form", layout: "shared/modal", locals: {label: "share-book"} %>
+
+<% if @user.owns_book?(@book) %>
+<script>
+document.getElementById("show-share-book-modal-btn").addEventListener('click', function() {
+  document.getElementById('share-book-modal').style.display = "block";
+})
+
+document.getElementById("share-book-modal-close-btn").addEventListener('click', function() {
+  document.getElementById('share-book-modal').style.display = "none";
+})
+
+</script>
 <% end %>

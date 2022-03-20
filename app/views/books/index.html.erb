@@ -30,9 +30,13 @@
             Read
           </a></li>
 
+          <% if @user.can_edit?(book) %>
           <li><a class="underline text-blue-600" href="/books/<%= book.id %>/edit">
             Edit
           </a></li>
+          <% else %>
+            <%= link_to "Remove Book", "/bookuser/#{@user.book_users.find_by(book_id: book.id).id}", class: "p-2 rounded-md bg-red-600 text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          <% end %>
         </ul>
       </li>
     <% end %>
