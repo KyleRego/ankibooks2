@@ -1,18 +1,39 @@
 <li>
-  <div class="flex justify-start items-center">
-    <%= link_to article.name, edit_book_article_path(@book, article), class: "hover:bg-gray-100" %>
-    <a href="/books/<%= @book.id %>/articles/<%= article.id %>/new" class="hover:bg-gray-100 inline">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-    </a>
-  </div>
+  <div class="flex justify-between items-center">
 
-  <% if article.has_children? %>
-    <ul class="pl-4">
-      <% article.subarticles.each do |subarticle| %>
-        <%= render partial: 'editor_article_tree_part', locals: {article: subarticle} %>
+    <div class="flex flex-row items-center justify-start">
+      <%= link_to article.name, edit_book_article_path(@book, article), class: "hover:bg-gray-100" %>
+    
+      <% if article.is_locked %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+        </svg>
       <% end %>
-    </ul>
-  <% end %>
+    </div>
+
+    <div class="flex flex-row items-center">
+      <a href="/books/<%= @book.id %>/articles/<%= article.id %>/new" class="text-xs rounded-md p-1 ml-2 text-white bg-blue-600">
+        New subarticle
+      </a>
+      <form method="post" action="/books/<%= @book.id %>/articles/<%= article.id %>/lock">
+        <button type="submit" class="text-xs rounded-md p-1 ml-2 text-white bg-blue-600">
+          <% if article.is_locked %>
+            Unlock article
+          <% elsif !article.is_locked %>
+            Lock article
+          <% end %>
+        </button>
+      </form>
+    </div>
+
+  </div>
 </li>
+
+<% if article.has_children? %>
+  <ul class="pl-4">
+    <% article.subarticles.each do |subarticle| %>
+      <%= render partial: 'editor_article_tree_part', locals: {article: subarticle} %>
+    <% end %>
+  </ul>
+<% end %>
+

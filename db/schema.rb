@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_18_185708) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_20_165106) do
   create_table "articles", force: :cascade do |t|
     t.string "name"
     t.text "content"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_18_185708) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_id"
+    t.boolean "is_locked", default: false
     t.index ["book_id"], name: "index_articles_on_book_id"
     t.index ["parent_id"], name: "index_articles_on_parent_id"
   end

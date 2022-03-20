@@ -70,6 +70,21 @@ class ArticlesController < ApplicationController
     redirect_to edit_book_path(book), status: :see_other
   end
 
+  def switch_is_locked # POST /books/:book_id/articles/:article_id/lock
+    user = current_user
+    book = user.books.find(params[:book_id])
+    article = book.articles.find(params[:article_id])
+    if user.can_edit?(book)
+      article.is_locked = !article.is_locked
+      article.save
+      flash[:success] = 'Article successfully locked.' if article.is_locked
+      flash[:success] = 'Article successfully unlocked.' unless article.is_locked
+    else
+      flash[:error] = 'You do not have permission to lock/unlock articles of this book.'
+    end
+    redirect_to edit_book_path(book), status: :see_other
+  end
+
   private
 
   def article_params
