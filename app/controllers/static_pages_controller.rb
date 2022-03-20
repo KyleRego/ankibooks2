@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
 
   def welcome
     if current_user
-      redirect_to "/users/#{current_user.id}"
+      redirect_to books_path
     end
   end
 
