@@ -44,4 +44,15 @@ class BookRemovingTest < ActionDispatch::IntegrationTest
     assert_equal 'You cannot remove a book from a user who owns the book.', flash[:error]
     assert_template 'users/show'
   end
+
+  test 'an owner should be able to remove themselves from a book' do
+    log_in_for_test(users(:kyle))
+    book_user = book_users(:one)
+    assert_difference 'BookUser.count', -1 do
+      delete "/bookuser/#{book_user.id}"
+    end
+    follow_redirect!
+    assert_equal "Book successfully removed.", flash[:success]
+    assert_template 'users/show'
+  end
 end
