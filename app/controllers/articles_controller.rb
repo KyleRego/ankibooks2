@@ -39,13 +39,20 @@ class ArticlesController < ApplicationController
   def edit # GET /books/:book_id/articles/:id/edit
     @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
+    if @article.is_locked
+      flash[:error] = 'You cannot edit a locked article.'
+      redirect_to edit_book_path(@book)
+    end
   end
 
   def update # PATCH /books/:book_id/articles/:id
     user = current_user
     @book = user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
-    if !user.can_edit?(@book)
+    if @article.is_locked
+      flash[:error] = 'You cannot update a locked article.'
+      redirect_to edit_book_path(@book)
+    elsif !user.can_edit?(@book)
       flash[:error] = "You cannot update the articles of this book."
       redirect_to user
     elsif @article.update(article_params)
@@ -74,7 +81,7 @@ class ArticlesController < ApplicationController
     user = current_user
     book = user.books.find(params[:book_id])
     article = book.articles.find(params[:article_id])
-    if user.can_edit?(book)
+    if user.owns_book?(book)
       article.is_locked = !article.is_locked
       article.save
       flash[:success] = 'Article successfully locked.' if article.is_locked

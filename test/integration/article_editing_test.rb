@@ -56,4 +56,16 @@ class ArticleEditingTest < ActionDispatch::IntegrationTest
     assert_equal "You cannot update the articles of this book.", flash[:error]
     assert_equal "Fixture Article 3", article.name
   end
+
+  test 'should not be able to edit an article which is locked' do
+    log_in_for_test(users(:kyle)) # Book one belongs to kyle and their role is owner
+    book = books(:one)
+    article = articles(:two)
+    assert article.is_locked
+    assert_equal 'Fixture Article 2', article.name
+    patch book_article_path(book, article), params: { article: { name: 'new name', content: "new content" } }
+    article.reload
+    assert_equal 'Fixture Article 2', article.name
+    assert_equal 'You cannot update a locked article.', flash[:error]
+  end
 end

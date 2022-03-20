@@ -6,6 +6,7 @@ one:
   content: Content of fixture article 1
   book_id: 1
   parent_id: null
+  is_locked: false
 
 two:
   id: 2
@@ -13,6 +14,7 @@ two:
   content: Content of fixture article 2, which is a subarticle of fixture article 1
   book_id: 1
   parent_id: 1
+  is_locked: true
 
 three:
   id: 3
@@ -20,6 +22,7 @@ three:
   content: This test article belongs to book 3, which belongs to user
   book_id: 3
   parent_id: null
+  is_locked: false
 
 four:
   id: 4
@@ -27,3 +30,4 @@ four:
   content: This test article belongs to book two
   book_id: 2
   parent_id: null
+  is_locked: false

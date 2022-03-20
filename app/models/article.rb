@@ -15,6 +15,6 @@ class Article < ApplicationRecord
   end
 
   def to_s
-    "==Article #{self.id}: name: #{self.name}; content: #{self.content}=="
+    "==Article #{self.id}: name: #{self.name}; content: #{self.content}; is_locked: #{self.is_locked}=="
   end
 end

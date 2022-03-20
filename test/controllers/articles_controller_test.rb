@@ -18,4 +18,15 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Fixture Article 1', json_response["name"]
     assert_equal 'Content of fixture article 1', json_response["content"]
   end
+
+  test 'should not show edit view of a locked article' do
+    log_in_for_test(users(:kyle))
+    book = books(:one)
+    article = articles(:two)
+    get edit_book_article_path(book, article)
+    assert_response :redirect
+    follow_redirect!
+    assert_template 'books/edit'
+    assert_equal 'You cannot edit a locked article.', flash[:error]
+  end
 end
