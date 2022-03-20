@@ -1,7 +1,10 @@
 <div class="bg-blue-600 p-4 flex flex-row justify-between align-middle shadow-md">
-  <span class="text-white text-2xl">
-    <%= link_to "Ankibooks2", '/' %>
-  </span>
+  <div class="flex justify-start items-center">
+    <%= link_to "AnkiBooks2", '/', class: "text-white text-2xl" %>
+    <% if @user %>
+      <a href="/books" class="text-white ml-8 text-md">Dashboard</a>
+    <% end %>
+  </div>
 
   <div class="text-white flex items-center justify-center">
     <% if logged_in? %>

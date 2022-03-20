@@ -2,14 +2,14 @@ class StaticPagesController < ApplicationController
   skip_before_action :require_login
 
   def welcome
-    if current_user
-      redirect_to books_path
-    end
+    @user = current_user
   end
 
   def help
+    @user = current_user
   end
 
   def about
+    @user = current_user
   end
 end
