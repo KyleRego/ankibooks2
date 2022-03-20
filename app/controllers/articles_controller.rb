@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
     @article = @book.articles.new(article_params)
     if !user.can_edit?(@book)
       flash[:error] = "You cannot add an article to this book."
-      redirect_to user
+      redirect_to books_path
     elsif @article.save
       flash[:success] = "Article successfully created."
       redirect_to edit_book_path(@book)
@@ -54,7 +54,7 @@ class ArticlesController < ApplicationController
       redirect_to edit_book_path(@book)
     elsif !user.can_edit?(@book)
       flash[:error] = "You cannot update the articles of this book."
-      redirect_to user
+      redirect_to books_path
     elsif @article.update(article_params)
       flash[:success] = "Article successfully updated."
       redirect_to edit_book_path(@book)

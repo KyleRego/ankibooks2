@@ -42,7 +42,7 @@ class ArticleEditingTest < ActionDispatch::IntegrationTest
     article = articles(:three) # article 3 is top level article of book 3
     patch book_article_path(book, article), params: { article: { name: 'new name', content: "new content" } }
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'books/index'
     assert_equal "You cannot update the articles of this book.", flash[:error]
     assert_equal "Fixture Article 3", article.name
   end

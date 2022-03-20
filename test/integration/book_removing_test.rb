@@ -9,7 +9,7 @@ class BookRemovingTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_equal 'Book successfully removed.', flash[:success]
-    assert_template 'users/show'
+    assert_template 'books/index'
   end
 
   test 'should be able to remove a user from a book if you are a owner' do
@@ -20,7 +20,7 @@ class BookRemovingTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_equal "Successfully removed the user from the book.", flash[:success]
-    assert_template 'users/show'
+    assert_template 'books/index'
   end
 
   test 'should not be able to remove a user from a book if you are not an owner' do
@@ -31,7 +31,7 @@ class BookRemovingTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_equal "You cannot remove a user from a book you do not own.", flash[:error]
-    assert_template 'users/show'
+    assert_template 'books/index'
   end
 
   test 'should not be able to remove a book from an owner as another owner' do
@@ -42,7 +42,7 @@ class BookRemovingTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_equal 'You cannot remove a book from a user who owns the book.', flash[:error]
-    assert_template 'users/show'
+    assert_template 'books/index'
   end
 
   test 'an owner should be able to remove themselves from a book' do
@@ -53,6 +53,6 @@ class BookRemovingTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_equal "Book successfully removed.", flash[:success]
-    assert_template 'users/show'
+    assert_template 'books/index'
   end
 end

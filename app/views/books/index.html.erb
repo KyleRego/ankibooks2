@@ -1,0 +1,42 @@
+<div class="bg-white px-16 py-8 mx-16 my-8 min-h-screen shadow-md rounded-md">
+
+  <div class="flex justify-start items-center border-b border-black pb-4">
+    <h1 class="text-4xl">
+      Your books:
+    </h1>
+    <a href="/books/new" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+      </svg>
+    </a>
+  </div>
+
+  <ul class="mt-4">
+    <% @books.each do |book| %>
+      <li>
+
+        <h3 class="text-2xl">
+          <%= book.name %>
+        </h3>
+
+        <ul class="list-inside list-disc">
+          <li>
+            <%= book.description %>
+          </li>
+
+          <li>
+            Your role: <%= book.role(@user) %>
+          </lI>
+
+          <li><a class="underline text-blue-600" href="/books/<%= book.id %>">
+            Read
+          </a></li>
+
+          <li><a class="underline text-blue-600" href="/books/<%= book.id %>/edit">
+            Edit
+          </a></li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

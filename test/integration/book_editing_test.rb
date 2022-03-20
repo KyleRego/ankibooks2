@@ -48,7 +48,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
     book = books(:two)
     patch book_path(book), params: { book: { name: "new name", description: "new description" } }
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'books/index'
     assert_equal "Book 2 Title", book.name
     assert_equal 'You cannot update this book.', flash[:error]
   end
@@ -58,7 +58,7 @@ class BookEditingTest < ActionDispatch::IntegrationTest
     book = books(:one)
     patch book_path(book), params: { book: { name: "new name", description: "new description" } }
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'books/index'
     assert_equal "Book 1 Title", book.name
     assert_equal 'You cannot update this book.', flash[:error]
   end

@@ -8,7 +8,7 @@ class BookDeletionTest < ActionDispatch::IntegrationTest
     book = users(:kyle).books.last
     delete book_path(book.id)
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'books/index'
     assert_equal "Book successfully deleted.", flash[:success]
   end
 

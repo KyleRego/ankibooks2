@@ -1,4 +1,10 @@
 class BooksController < ApplicationController
+
+  def index # GET /books
+    @user = current_user
+    @books = @user.books
+  end
+
   def new # GET /books/new
     @book = Book.new
   end
@@ -13,7 +19,7 @@ class BooksController < ApplicationController
     @book = @user.books.find(params[:id])
     if !@user.owns_book?(@book)
       flash[:error] = 'You cannot update this book.'
-      redirect_to @user
+      redirect_to books_path
     elsif @user && @book.update(book_params)
       flash[:success] = "Book successfully updated."
       redirect_to edit_book_path(@book)
@@ -51,7 +57,7 @@ class BooksController < ApplicationController
       # raise the same error as if the book couldnt be found
       raise ActiveRecord::RecordNotFound
     end
-    redirect_to user, status: :see_other
+    redirect_to books_path, status: :see_other
   end
 
   def new_book_user # POST /bookuser/new
@@ -91,7 +97,7 @@ class BooksController < ApplicationController
     else
       flash[:error] = "You cannot remove a user from a book you do not own."
     end
-    redirect_to user, status: :see_other
+    redirect_to books_path, status: :see_other
   end
 
   private

@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 
   def show # GET /users/:id
     @user = User.find(params[:id])
-    @books = @user.books
   end
 
   def new # GET /users/new
