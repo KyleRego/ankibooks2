@@ -26,4 +26,18 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     get edit_book_path(book)
     assert_response :redirect
   end
+
+  test 'should allow an unlogged in user to read a public book' do
+    book = books(:two)
+    get book_path(book)
+    assert_response :success
+  end
+
+  test 'should not allow an unlogged in user to read a private book' do
+    book = books(:one)
+    get book_path(book)
+    assert_response :redirect
+    follow_redirect!
+    assert_template 'static_pages/welcome'
+  end
 end

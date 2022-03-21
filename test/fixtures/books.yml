@@ -14,8 +14,10 @@ two:
   id: 2
   name: Book 2 Title
   description: Book 2 Description
+  is_public: true
 
 three:
   id: 3
   name: Book 3 Title
   description: Book 3 Description
+  is_public: true

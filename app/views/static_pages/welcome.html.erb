@@ -7,13 +7,14 @@
 <ul class="list-inside list-disc">
   <li><a href="/about" class="underline text-blue-600">About</a></li>
   <li><a href="/help" class="underline text-blue-600">Help</a></li>
+  <li><a href="/search" class="underline text-blue-600">Public books</a></li>
 </ul>
 </section>
 
-<section class="flex justify-center items-center">
+<section class="flex justify-center items-center mt-4">
   <form action="/search" method="get">
-    <div class="flex justify-start items-center w-96 bg-white rounded-md shadow-md">
-      <input type="search" placeholder="Search public books" class="flex-grow p-1">
+    <div class="flex justify-start items-center w-96 bg-white rounded-lg px-2 shadow-md">
+      <input type="search" name="query" placeholder="Search public books" class="flex-grow p-1 outline-none">
 
       <button type="submit">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

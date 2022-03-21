@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   post '/books/:book_id/articles/:article_id/lock', to: 'articles#switch_is_locked'
   post '/books/:book_id/public', to: 'books#switch_is_public'
 
+  get '/search', to: 'search#index'
+
   resources :users
 
   resources :books do

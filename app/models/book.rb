@@ -27,6 +27,6 @@ class Book < ApplicationRecord
   end
 
   def to_s
-    "==Book #{self.id}: name: #{self.name}; description: #{self.description}=="
+    "==Book #{self.id}: name: #{self.name}; description: #{self.description}; is_public: #{self.is_public}=="
   end
 end

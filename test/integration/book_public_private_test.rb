@@ -17,7 +17,7 @@ class BookPublicPrivateTest < ActionDispatch::IntegrationTest
     refute book.is_public
   end
 
-  test 'an editor of a book should not be able to make a book public' do
+  test 'an editor of a book should not be able to make a private book public' do
     log_in_for_test(users(:user)) # Book one belongs to user and their role is editor
     book = books(:one)
     refute book.is_public
@@ -28,15 +28,15 @@ class BookPublicPrivateTest < ActionDispatch::IntegrationTest
     refute book.is_public
   end
 
-  test 'a reader of a book should not be able to make a book public' do
+  test 'a reader of a book should not be able to make a public book private' do
     log_in_for_test(users(:user)) # Book two belongs to user and their role is reader
     book = books(:two)
-    refute book.is_public
+    assert book.is_public
     post "/books/#{book.id}/public"
     follow_redirect!
     follow_redirect!
     assert_template 'books/index'
     book.reload
-    refute book.is_public
+    assert book.is_public
   end
 end

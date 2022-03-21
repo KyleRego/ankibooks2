@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  skip_before_action :require_login, only: [:show]
+
   def new # GET /books/:book_id/articles/new
     @book = current_user.books.find_by(id: params[:book_id])
     @article = Article.new
@@ -11,9 +13,16 @@ class ArticlesController < ApplicationController
   end
 
   def show # GET /books/:book_id/articles/:id
-    @book = current_user.books.find_by(id: params[:book_id])
+    user = current_user
+    @book = Book.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
-    render json: @article
+    if !user && !@book.is_public
+      redirect_to "/"
+    elsif user && !user.books.include?(@book)
+      redirect_to "/"
+    else
+      render json: @article
+    end
   end
 
   def create #  POST /books/:book_id/articles

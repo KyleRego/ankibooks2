@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  skip_before_action :require_login, only: [:show]
 
   def index # GET /books
     @user = current_user
@@ -47,7 +48,13 @@ class BooksController < ApplicationController
   end
 
   def show # GET /books/:id
-    @book = current_user.books.find(params[:id])
+    @user = current_user
+    @book = Book.find_by(id: params[:id])
+    if !@user && !@book.is_public
+      redirect_to "/"
+    elsif !@book.is_public && !@user.books.include?(@book)
+      redirect_to "/"
+    end
   end
 
   def destroy # DELETE /books/:id
