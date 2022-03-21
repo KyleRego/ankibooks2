@@ -8,6 +8,7 @@ one:
   id: 1
   name: Book 1 Title
   description: Book 1 Description
+  is_public: false
 
 two:
   id: 2
