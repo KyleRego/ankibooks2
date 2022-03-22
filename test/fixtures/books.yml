@@ -27,3 +27,9 @@ four:
   name: Book 4 Title
   description: Book 4 Description
   is_public: true
+
+five:
+  id: 5
+  name: Book 5 Title
+  description: Book 5 Description
+  is_public: false

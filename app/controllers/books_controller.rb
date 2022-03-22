@@ -52,7 +52,7 @@ class BooksController < ApplicationController
     @book = Book.find_by(id: params[:id])
     if !@user && !@book.is_public
       redirect_to "/"
-    elsif !@book.is_public && !@user.books.include?(@book)
+    elsif @user && !@book.is_public && !@user.books.include?(@book)
       redirect_to "/"
     end
   end

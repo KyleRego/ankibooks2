@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     @article = @book.articles.find(params[:id])
     if !user && !@book.is_public
       redirect_to "/"
-    elsif user && !user.books.include?(@book)
+    elsif user && !@book.is_public && !user.books.include?(@book)
       redirect_to "/"
     else
       render json: @article

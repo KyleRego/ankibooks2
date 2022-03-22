@@ -47,3 +47,11 @@ six:
   book_id: 1
   parent_id: 2
   is_locked: false
+
+seven:
+  id: 7
+  name: Fixture Article 7
+  content: This is a article of book 5 which is a private book.
+  book_id: 5
+  parent_id: null
+  is_locked: false
