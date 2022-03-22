@@ -43,4 +43,20 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     get book_article_path(book, article)
     assert_response :success
   end
+
+  test 'should not get json from #show for a logged in user for a private book that does not belong to them' do
+    log_in_for_test(users(:kyle))
+    book = books(:four)
+    article = articles(:five)
+    get book_article_path(book, article)
+    assert_response :redirect
+  end
+
+  test 'should get json from #show for a logged in user for a private book that does belong to them' do
+    log_in_for_test(users(:user4)) # Book four belongs to user4 and their role is reader
+    book = books(:four)
+    article = articles(:five)
+    get book_article_path(book, article)
+    assert_response :success
+  end
 end

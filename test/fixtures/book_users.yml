@@ -45,3 +45,9 @@ eight:
   user_id: 4
   book_id: 3
   role_id: 1 # Book three belongs to user3 and their role is owner
+
+nine:
+  id: 9
+  user_id: 5
+  book_id: 4
+  role_id: 3 # Book four belongs to user4 and their role is reader
