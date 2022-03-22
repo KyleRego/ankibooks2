@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   end
 
   get '/books/:book_id/articles/:parent_id/new', to: 'articles#new_subarticle'
+  get '/books/:book_id/articles/:article_id/download', to: 'articles#download_deck'
 end

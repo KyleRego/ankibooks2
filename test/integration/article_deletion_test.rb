@@ -1,11 +1,11 @@
 require "test_helper"
 
 class ArticleDeletionTest < ActionDispatch::IntegrationTest
-  test 'should delete fixture article 1 which has one subarticle' do
+  test 'should delete fixture article 1 which has two subarticles' do
     log_in_for_test(users(:kyle))
     book = books(:one)
     article = articles(:one)
-    assert_difference 'Article.count', -2 do
+    assert_difference 'Article.count', -3 do
       delete book_article_path(book, article)
     end
     assert_response :redirect
@@ -14,11 +14,11 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
     assert_equal 'Article successfully deleted.', flash[:success]
   end
 
-  test 'should delete fixture article 2 which has no subarticles' do
+  test 'should delete fixture article 2 which has one subarticle' do
     log_in_for_test(users(:kyle))
     book = books(:one)
     article = articles(:two)
-    assert_difference 'Article.count', -1 do
+    assert_difference 'Article.count', -2 do
       delete book_article_path(book, article)
     end
     assert_response :redirect
@@ -51,7 +51,7 @@ class ArticleDeletionTest < ActionDispatch::IntegrationTest
     log_in_for_test(users(:user)) # Book one belongs to user and their role is editor
     book = books(:one)
     article = articles(:two)
-    assert_difference 'Article.count', -1 do
+    assert_difference 'Article.count', -2 do
       delete book_article_path(book, article)
     end
     follow_redirect!

@@ -101,6 +101,24 @@ class ArticlesController < ApplicationController
     redirect_to edit_book_path(book), status: :see_other
   end
 
+  def download_deck # GET /books/:book_id/articles/:article_id/download
+    user = current_user
+    book = user.books.find(params[:book_id])
+    article = book.articles.find(params[:article_id])
+    data_json = article.to_json_data
+
+    where_to_put_decks = Rails.root.join('storage', 'tmp_anki_decks')
+    deck_filename = `python3 lib/assets/python/make_deck.py '#{data_json}' '#{where_to_put_decks}'`
+    file_to_download = File.join(where_to_put_decks, deck_filename)
+
+    if File.exist?(file_to_download)
+      send_file file_to_download, filename: deck_filename
+    else
+      flash[:error] = 'Failed to generate Anki deck'
+      redirect_to book
+    end
+  end
+
   private
 
   def article_params

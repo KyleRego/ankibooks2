@@ -27,4 +27,26 @@ class Article < ApplicationRecord
     matches = self.content.scan(ANKI_NOTE_REGEX)
     raw_notes = matches.map { |match| match[0] }
   end
+
+  # returns parent article or nil
+  def parent
+    Article.find_by(id: self.parent_id)
+  end
+
+  # returns the corresponding anki deck title string to the article
+  # in anki, a parent deck "deck" with child deck "child" would be
+  # string "deck::child" and this method makes deck titles like these
+  def anki_deck_title
+    title = self.name
+    current_article = self
+    while current_article.parent
+      title = current_article.parent.name + '::' + title
+      current_article = current_article.parent
+    end
+    title
+  end
+
+  def to_json_data
+    { title: anki_deck_title, notes: raw_anki_notes , images: [] }.to_json
+  end
 end
