@@ -1,8 +1,8 @@
-<div class="bg-white px-16 py-8 mx-16 my-8 min-h-screen shadow-md rounded-md">
+<div class="p-4">
 
   <div class="flex justify-start items-center border-b border-black pb-4">
     <h1 class="text-4xl">
-      Your books:
+      Your Books:
     </h1>
     <a href="/books/new" class="bg-blue-600 rounded-md text-white p-2 ml-2">
       New book
@@ -36,7 +36,7 @@
           </li>
 
           <li>
-            <%= book.is_public ? "Public book" : "Private book" %>
+            <%= book.is_public ? "Public" : "Private" %>
           </li>
 
           <li>

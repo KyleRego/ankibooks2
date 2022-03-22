@@ -1,9 +1,12 @@
-<section class="p-4 m-4 bg-white border-black shadow-md rounded-md">
+<section class="p-4">
   <h1 class="text-4xl border-b border-black pb-4">Search results for search string: '<%= @query %>'</h1>
   <ul>
     <% @books.each do |book| %>
       <li>
-        <h2 class="text-2xl pt-4 text-blue-600"><%= link_to book.name, "/books/#{book.id}" %><h2>
+        <div class="flex justify-start items-center pt-4">
+          <h2 class="text-2xl"><%= book.name %><h2>
+          <%= link_to "Read", "/books/#{book.id}", class: "text-md bg-blue-600 text-white px-2 py-1 rounded-md ml-4" %>
+        </div>
         <ul class="list-inside list-disc">
           <li><%= book.description %></li>
         </ul>
