@@ -11,4 +11,14 @@ class ArticleTest < ActiveSupport::TestCase
     child_article = articles(:two)
     assert_equal child_article, parent_article.subarticles.first
   end
+
+  test 'article five should return list of two anki notes' do
+    article = articles(:five)
+    assert_equal ['Here we have an example of an {{c1::Anki note}}', 'How many major types of muscle are there? {{c1::3}}'], article.raw_anki_notes
+  end
+
+  test 'article one should return empty list of anki notes' do
+    article = articles(:one)
+    assert_equal [], article.raw_anki_notes
+  end
 end

@@ -35,7 +35,7 @@ four:
 five:
   id: 5
   name: "Fixture Article 5"
-  content: This test article belongs to book four
+  content: This test article belongs to book four. [[Here we have an example of an {{c1::Anki note}}]]. This is not an Anki note. [[How many major types of muscle are there? {{c1::3}}]]
   book_id: 4
   parent_id: null
   is_locked: false
