@@ -43,7 +43,7 @@ class Article < ApplicationRecord
       title = current_article.parent.name + '::' + title
       current_article = current_article.parent
     end
-    title
+    'AnkiBooks::' + title
   end
 
   def to_json_data

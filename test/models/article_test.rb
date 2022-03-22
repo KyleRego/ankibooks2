@@ -25,16 +25,16 @@ class ArticleTest < ActiveSupport::TestCase
 
   test 'anki deck title should be article name for top level article' do
     article = articles(:one)
-    assert_equal "Fixture Article 1", article.anki_deck_title
+    assert_equal "AnkiBooks::Fixture Article 1", article.anki_deck_title
   end
 
   test 'anki deck title should combine parent and child names' do
     article = articles(:two)
-    assert_equal 'Fixture Article 1::Fixture Article 2', article.anki_deck_title
+    assert_equal 'AnkiBooks::Fixture Article 1::Fixture Article 2', article.anki_deck_title
   end
 
   test 'anki deck title should combine three article names' do
     article = articles(:six)
-    assert_equal 'Fixture Article 1::Fixture Article 2::Fixture Article 6', article.anki_deck_title
+    assert_equal 'AnkiBooks::Fixture Article 1::Fixture Article 2::Fixture Article 6', article.anki_deck_title
   end
 end

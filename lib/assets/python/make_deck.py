@@ -63,7 +63,7 @@ def main():
     for raw_note in json_data['notes']:
         note = genanki.Note(
             model = anki_model,
-            fields = [raw_note]
+            fields = [raw_note, '']
         )
 
         deck.add_note(note)

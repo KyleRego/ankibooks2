@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :require_login, only: [:show]
+  skip_before_action :require_login, only: [:show, :download_deck]
 
   def new # GET /books/:book_id/articles/new
     @book = current_user.books.find_by(id: params[:book_id])
@@ -103,19 +103,27 @@ class ArticlesController < ApplicationController
 
   def download_deck # GET /books/:book_id/articles/:article_id/download
     user = current_user
-    book = user.books.find(params[:book_id])
-    article = book.articles.find(params[:article_id])
+    book = Book.find_by(id: params[:book_id])
+    article = Article.find_by(id: params[:article_id])
     data_json = article.to_json_data
 
-    where_to_put_decks = Rails.root.join('storage', 'tmp_anki_decks')
-    deck_filename = `python3 lib/assets/python/make_deck.py '#{data_json}' '#{where_to_put_decks}'`
-    file_to_download = File.join(where_to_put_decks, deck_filename)
-
-    if File.exist?(file_to_download)
-      send_file file_to_download, filename: deck_filename
+    if !user && !book.is_public
+      flash[:error] = "You cannot download a deck from a private book while not logged in."
+      redirect_to "/"
+    elsif user && !book.is_public && !user.books.include?(book)
+      flash[:error] = "You cannot download a deck from a private book you do not have access to."
+      redirect_to "/"
     else
-      flash[:error] = 'Failed to generate Anki deck'
-      redirect_to book
+      where_to_put_decks = Rails.root.join('storage', 'tmp_anki_decks')
+      deck_filename = `python3 lib/assets/python/make_deck.py '#{data_json}' '#{where_to_put_decks}'`
+      file_to_download = File.join(where_to_put_decks, deck_filename)
+
+      if File.exist?(file_to_download)
+        send_file file_to_download, filename: deck_filename
+      else
+        flash[:error] = 'Failed to generate Anki deck.'
+        redirect_to book
+      end
     end
   end
 

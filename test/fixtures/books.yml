@@ -26,4 +26,4 @@ four:
   id: 4
   name: Book 4 Title
   description: Book 4 Description
-  is_public: false
+  is_public: true
