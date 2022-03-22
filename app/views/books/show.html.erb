@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
 
 <div class="lg:grid lg:grid-cols-4 min-h-screen">
   
-  <div class="col-span-1 max-h-fit p-4">
+  <div class="col-span-1 max-h-fit p-4 flex flex-col justify-start items-baseline">
     <div class="bg-white border border-black shadow-md rounded-md p-4">
       <h1 id="title-for-book-with-id-<%= @book.id %>" class="book-title text-center text-2xl border-b border-black pb-4 mb-4">
         <%= @book.name %>
@@ -47,10 +47,12 @@ h1, h2, h3, h4, h5, h6 {
         <% end %>
       </ul>
     </div>
+    <a id="download-deck-button" href="" class="bg-blue-600 text-white rounded-md text-sm p-2 mt-1">Download deck</a>
 
   </div>
 
   <div id="article-content-div" class="bg-white border col-span-3 border-black shadow-md rounded-md m-4 p-4">
+    
   </div>
 
 </div>

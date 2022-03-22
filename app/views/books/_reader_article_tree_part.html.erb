@@ -1,8 +1,5 @@
 <li id="reader-article-part-for-article-with-id-<%= article.id %>" class="reader-article-tree-parts">
-  <div class="flex justify-between items-center">
-    <span class="hover:bg-gray-200"><%= article.name %></span>
-    <a href="/books/<%= @book.id %>/articles/<%= article.id %>/download" class="text-xs bg-blue-600 rounded-md text-white p-1">Download</a>
-  </div>
+  <span class="hover:bg-gray-200 cursor-pointer"><%= article.name %></span>
 </li>
 
 <% if article.has_children? %>

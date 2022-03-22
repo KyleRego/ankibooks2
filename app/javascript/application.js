@@ -93,7 +93,7 @@ try { // for views/books/show.html.erb
     let initial_article_id = document.querySelectorAll(".reader-article-tree-parts")[0].id.split('-')[7];
     let articleContentDiv = document.querySelector("#article-content-div");
     let readerArticleTreeParts = document.querySelectorAll(".reader-article-tree-parts");
-  
+    let downloadDeckButton = document.querySelector("#download-deck-button");
     
     function loadArticleContent(book_id, article_id){
       let fetchResponsePromise = fetch(`/books/${book_id}/articles/${article_id}`)
@@ -101,6 +101,7 @@ try { // for views/books/show.html.erb
       .then(response => response.json())
       .then(function(data){
         articleContentDiv.innerHTML = marked.parse(data["content"]);
+        downloadDeckButton.href = `/books/${book_id}/articles/${article_id}/download`;
       })
     }
   
