@@ -101,6 +101,14 @@ try { // for views/articles/edit.html.erb
       console.log('The upload article button was clicked.')
     })
 
+    let copyImageLinkButtons = document.querySelectorAll(".copy-image-link-buttons");
+    copyImageLinkButtons.forEach(function(button){
+      button.addEventListener('click', function(){
+        let text = button.id;
+        navigator.clipboard.writeText(text);
+      })
+    })
+
 } catch (error) {
     console.log('from application.js content for articles/edit.html.erb')
     console.log(error)

@@ -4,20 +4,25 @@
   <section class="p-4">
   <h2 class="text-xl">Images available to this article:</h2>
   <div class="flex flex-wrap">
+
     <% @article.images.each do |image| %>
     <div class="flex items-center p-4 m-4 border-black border">
 
       <%= image_tag image.representation(resize_to_limit: [150, 150]) %>
 
-      <div class="flex flex-col items-center pl-4">
-        <%= image.filename %>
+      <div class="flex flex-col justify-around h-full items-center pl-4">
+
+        <button id="![Alternative text](<%= url_for(image) %>)" class="copy-image-link-buttons bg-blue-600 text-white text-xs p-1 rounded-md">Copy Markdown</button>
+
         <form method="post" action="/books/<%= @book.id %>/articles/<%= @article.id %>/images/<%= image.id %>/remove">
           <button type="submit" class="bg-red-600 text-white text-xs p-1 rounded-md">Remove Image</button>
         </form>
+
       </div>
       
     </div>
     <% end %>
+
   </section>
 <% end %>
 
