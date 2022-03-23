@@ -136,6 +136,8 @@ class ArticlesController < ApplicationController
       file_extension = File.extname(File.path(image.tempfile))
       if file_extension == '.png' || file_extension == '.jpg'
         article.images.attach(image)
+      else
+        flash[:error] = "Only .png and .jpg images may be uploaded."
       end
       flash[:success] = "Image successfully uploaded."
     rescue
