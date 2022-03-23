@@ -46,6 +46,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit # GET /books/:book_id/articles/:id/edit
+    @user = current_user
     @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
     @should_show_upload_image_button = true
