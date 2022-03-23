@@ -48,6 +48,7 @@ class ArticlesController < ApplicationController
   def edit # GET /books/:book_id/articles/:id/edit
     @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
+    @should_show_upload_image_button = true
     if @article.is_locked
       flash[:error] = 'You cannot edit a locked article.'
       redirect_to edit_book_path(@book)
@@ -142,6 +143,20 @@ class ArticlesController < ApplicationController
       flash[:success] = "Image successfully uploaded."
     rescue
       flash[:error] = "Something went wrong uploading an image."
+    end
+    redirect_to edit_book_article_path(book, article)
+  end
+
+  def remove_image # POST /books/:book_id/articles/:article_id/images/:image_id/remove
+    user = current_user
+    book = user.books.find(params[:book_id])
+    article = book.articles.find(params[:article_id])
+    image = ActiveStorage::Attachment.find(params[:image_id])
+    if article.images.include?(image)
+      image.purge
+      flash[:success] = "Image successfully removed from article."
+    else
+      flash[:error] = "Something went wrong removing image from article."
     end
     redirect_to edit_book_article_path(book, article)
   end

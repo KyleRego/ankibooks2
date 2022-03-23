@@ -1,5 +1,5 @@
 <style>
-#preview h1, h2, h3, h4, h5, h6 {
+#preview h1, #preview h2, #preview h3, #preview h4, #preview h5, #preview h6 {
   font-weight: 500;
 }
 #preview h1 {
@@ -50,7 +50,7 @@
         </div>
         <div>
           <%= f.submit class: "p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg" %>
-          <% if params[:article_id] %>
+          <% if @should_show_upload_image_button %>
             <button id="show-upload-image-modal-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Upload Image</button>
           <% end %>
           <button id="update-preview-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Update Preview</button>
@@ -119,12 +119,12 @@
   </section>
 
   
-  <section class="bg-white border border-black shadow-md rounded-md m-4 p-4" id="preview">
+  <section id="preview" class="bg-white border border-black shadow-md rounded-md m-4 p-4">
     
   </section>
   
 </div>
 
-<% if params[:article_id] %>
+<% if @should_show_upload_image_button %>
   <%= render partial: "upload_image_form", layout: "shared/modal", locals: {label: "upload-image"} %>
 <% end %>

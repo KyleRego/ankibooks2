@@ -1,7 +1,7 @@
 <%= form_with url: upload_image_path(@book, @article), method: :post, model: @article do |f| %>
 
-  <p><strong>Note:</strong> uploading an image will reload the page.</p>
-  <p>Any changes made to the content of the article since the last save will be lost.</p>
+  <p><strong>Note that uploading an image will reload the page.</strong></p>
+  <p>Any changes made to the content of the article since the last update will be lost.</p>
 
   <%= f.file_field :image %>
 

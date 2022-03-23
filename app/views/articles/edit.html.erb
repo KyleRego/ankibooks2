@@ -1,4 +1,26 @@
 <%= render partial: 'form', locals: {title: "Editing Article: #{@article.name}"} %>
-<div class="mt-8">
-  <%= link_to "Delete article", book_article_path(@book, @article), class: "p-2 bg-red-600 text-white rounded-md float-right", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+
+<% if @article.images.count != 0 %>
+  <section class="p-4">
+  <h2 class="text-xl">Images available to this article:</h2>
+  <div class="flex flex-wrap">
+    <% @article.images.each do |image| %>
+    <div class="flex items-center p-4 m-4 border-black border">
+
+      <%= image_tag image.representation(resize_to_limit: [150, 150]) %>
+
+      <div class="flex flex-col items-center pl-4">
+        <%= image.filename %>
+        <form method="post" action="/books/<%= @book.id %>/articles/<%= @article.id %>/images/<%= image.id %>/remove">
+          <button type="submit" class="bg-red-600 text-white text-xs p-1 rounded-md">Remove Image</button>
+        </form>
+      </div>
+      
+    </div>
+    <% end %>
+  </section>
+<% end %>
+
+<div class="mt-8 flex justify-end p-4">
+  <%= link_to "Delete article", book_article_path(@book, @article), class: "p-2 bg-red-600 text-white rounded-md", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 </div>

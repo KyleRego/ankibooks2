@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post '/books/:book_id/public', to: 'books#switch_is_public'
 
   post '/books/:book_id/articles/:article_id/upload_image', to: 'articles#upload_image', as: :upload_image
+  post '/books/:book_id/articles/:article_id/images/:image_id/remove', to: 'articles#remove_image'
 
   get '/search', to: 'search#index'
 
