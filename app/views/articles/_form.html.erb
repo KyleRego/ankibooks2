@@ -26,7 +26,7 @@
 </style>
 
 
-<div class="md:grid md:grid-cols-2 md:h-screen">
+<div class="lg:grid lg:grid-cols-2 lg:h-screen">
   <section>
   <h1 class="p-4 text-2xl"><%= title %></h1>
     <%= form_with model: [@book, @article], class: "px-4" do |f| %>
@@ -48,8 +48,11 @@
           <%= f.label :name, class: "block" %>
           <%= f.text_field :name, class: "block" %>
         </div>
-
-        <button id="update-preview-button" class="p-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Update Preview</button>
+        <div>
+          <%= f.submit class: "p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg" %>
+          <button id="show-upload-image-modal-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Upload Image</button>
+          <button id="update-preview-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Update Preview</button>
+        </div>
       </div>
       
 
@@ -110,7 +113,6 @@
 
       <%= f.hidden_field :parent_id, value: "#{@parent_article ? @parent_article.id : nil}" %>
 
-      <%= f.submit class: "p-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg" %>
     <% end %>
   </section>
 
@@ -120,3 +122,5 @@
   </section>
   
 </div>
+
+<%= render partial: "upload_image_form", layout: "shared/modal", locals: {label: "upload-image"} %>

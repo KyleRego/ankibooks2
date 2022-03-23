@@ -127,6 +127,23 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def upload_image # POST /books/:book_id/articles/:article_id/upload_image
+    user = current_user
+    book = user.books.find(params[:book_id])
+    article = book.articles.find(params[:article_id])
+    begin
+      image = params[:article][:image]
+      file_extension = File.extname(File.path(image.tempfile))
+      if file_extension == '.png' || file_extension == '.jpg'
+        article.images.attach(image)
+      end
+      flash[:success] = "Image successfully uploaded."
+    rescue
+      flash[:error] = "Something went wrong uploading an image."
+    end
+    redirect_to edit_book_article_path(book, article)
+  end
+
   private
 
   def article_params

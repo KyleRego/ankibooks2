@@ -8,6 +8,8 @@ class Article < ApplicationRecord
   validates :name, presence: true
   validates :content, presence: true
 
+  has_many_attached :images
+
   def subarticles
     subarticles = Article.where(parent_id: self.id)
   end

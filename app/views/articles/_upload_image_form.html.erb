@@ -1,0 +1,10 @@
+<%= form_with url: upload_image_path(@book, @article), method: :post, model: @article, remote: true do |f| %>
+
+  <p><strong>Note:</strong> uploading an image will reload the page.</p>
+  <p>Any changes made to the content of the article since the last save will be lost.</p>
+
+  <%= f.file_field :image %>
+
+  <%= f.submit "Upload image", class: "bg-blue-600 p-2 text-white rounded-md cursor-pointer mt-4", id: "upload-image-button" %>
+
+<% end %>

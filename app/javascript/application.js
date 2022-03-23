@@ -83,6 +83,24 @@ try { // for views/articles/edit.html.erb
     addClickEventToMarkdownEditorButton(c2Button, "{{c2::", "}}");
     addClickEventToMarkdownEditorButton(ankiNoteButton, "[[", "]]");
 
+
+    let showUploadImageModalButton = document.querySelector("#show-upload-image-modal-button");
+    let hideImageModalButton = document.getElementById("upload-image-modal-close-btn");
+    let uploadImageButton = document.getElementById("upload-image-button");
+
+    showUploadImageModalButton.addEventListener('click', function(event){
+      event.preventDefault();
+      document.getElementById("upload-image-modal").style.display = "block";
+    })
+
+    hideImageModalButton.addEventListener('click', function(){
+      document.getElementById("upload-image-modal").style.display = "none";
+    })
+
+    uploadImageButton.addEventListener('click', function(){
+      console.log('The upload article button was clicked.')
+    })
+
 } catch (error) {
     console.log('from application.js content for articles/edit.html.erb')
     console.log(error)
