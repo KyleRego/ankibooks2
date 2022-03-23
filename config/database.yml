@@ -16,5 +16,5 @@ test:
 production:
   <<: *default
   database: ankibooks2_production
-  username: username
-  password: <%= ENV['PROJECT_DATABASE_PASSWORD'] %>
+  username: ankibooks2
+  password: <%= ENV['ANKIBOOKS2_DATABASE_PASSWORD'] %>
