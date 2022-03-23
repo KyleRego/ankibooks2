@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_03_23_154014) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -42,18 +45,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_154014) do
   create_table "articles", force: :cascade do |t|
     t.string "name"
     t.text "content"
-    t.integer "book_id"
+    t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "parent_id"
+    t.bigint "parent_id"
     t.boolean "is_locked", default: false
     t.index ["book_id"], name: "index_articles_on_book_id"
     t.index ["parent_id"], name: "index_articles_on_parent_id"
   end
 
   create_table "book_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "book_id"
+    t.bigint "user_id"
+    t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role_id", default: 3, null: false
