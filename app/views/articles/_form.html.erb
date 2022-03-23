@@ -50,7 +50,9 @@
         </div>
         <div>
           <%= f.submit class: "p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg" %>
-          <button id="show-upload-image-modal-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Upload Image</button>
+          <% if params[:article_id] %>
+            <button id="show-upload-image-modal-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Upload Image</button>
+          <% end %>
           <button id="update-preview-button" class="p-2 text-sm bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg">Update Preview</button>
         </div>
       </div>
@@ -123,4 +125,6 @@
   
 </div>
 
-<%= render partial: "upload_image_form", layout: "shared/modal", locals: {label: "upload-image"} %>
+<% if params[:article_id] %>
+  <%= render partial: "upload_image_form", layout: "shared/modal", locals: {label: "upload-image"} %>
+<% end %>

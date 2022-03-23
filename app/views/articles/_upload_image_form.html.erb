@@ -1,4 +1,4 @@
-<%= form_with url: upload_image_path(@book, @article), method: :post, model: @article, remote: true do |f| %>
+<%= form_with url: upload_image_path(@book, @article), method: :post, model: @article do |f| %>
 
   <p><strong>Note:</strong> uploading an image will reload the page.</p>
   <p>Any changes made to the content of the article since the last save will be lost.</p>

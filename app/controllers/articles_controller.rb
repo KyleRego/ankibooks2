@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
       redirect_to books_path
     elsif @article.update(article_params)
       flash[:success] = "Article successfully updated."
-      redirect_to edit_book_path(@book)
+      redirect_to edit_book_article_path(@book, @article)
     else
       render :edit, status: :unprocessable_entity
     end
