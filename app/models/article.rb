@@ -49,6 +49,16 @@ class Article < ApplicationRecord
   end
 
   def to_json_data
-    { title: anki_deck_title, notes: raw_anki_notes , images: [] }.to_json
+    my_hash = { title: anki_deck_title, notes: raw_anki_notes , images: [] }
+
+    temp_folder = ActiveStorage::SendZipHelper.save_files_on_server(self.images)
+    my_hash[:images_temp_folder_path] = temp_folder
+
+    Dir.foreach(temp_folder) do |filename|
+      next if filename == '.' || filename == '..'
+      my_hash[:images] << filename.to_s
+    end
+
+    my_hash.to_json
   end
 end

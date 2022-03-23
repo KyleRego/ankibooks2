@@ -42,4 +42,26 @@ class DeckDownloadingTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/welcome'
     assert_equal 'You cannot download a deck from a private book you do not have access to.', flash[:error]
   end
+
+  test 'should upload 2 images to a article and then download its deck' do
+    log_in_for_test(users(:kyle))
+    book = books(:one)
+    article = articles(:one)
+    get edit_book_article_path(book, article)
+    assert_response :success
+    assert_template 'articles/edit'
+    post upload_image_path(book, article), params: { article: { image: fixture_file_upload('test_image_one.png') } }
+    assert_response :redirect
+    follow_redirect!
+    assert_equal "Image successfully uploaded.", flash[:success]
+    post upload_image_path(book, article), params: { article: { image: fixture_file_upload('test_image_two.jpg') } }
+    assert_response :redirect
+    follow_redirect!
+    assert_equal "Image successfully uploaded.", flash[:success]
+    get books_path(book)
+    assert_response :success
+
+    get "/books/#{book.id}/articles/#{article.id}/download"
+    assert_response :success
+  end
 end

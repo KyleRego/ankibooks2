@@ -60,15 +60,25 @@ def main():
 
     deck = generateDeck(deck_title)
 
+    
+    image_string = ''
+    images = []
+    images_temp_folder_path = json_data['images_temp_folder_path']
+    for image_filename in json_data['images']:
+        image_path = os.path.join(images_temp_folder_path, image_filename)
+        images.append(image_path)
+        image_string += f'<img src="{image_filename}">'
+
     for raw_note in json_data['notes']:
         note = genanki.Note(
             model = anki_model,
-            fields = [raw_note, '']
+            fields = [raw_note, image_string]
         )
 
         deck.add_note(note)
 
     package = genanki.Package(deck)
+    package.media_files = images
     
     filename = generateName() + '.apkg'
 
