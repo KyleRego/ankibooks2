@@ -116,7 +116,7 @@ class ArticlesController < ApplicationController
       flash[:error] = "You cannot download a deck from a private book you do not have access to."
       redirect_to "/"
     else
-      where_to_put_decks = Rails.root.join('storage', 'tmp_anki_decks')
+      where_to_put_decks = Rails.root.join('storage')
       deck_filename = `python3 lib/assets/python/make_deck.py '#{data_json}' '#{where_to_put_decks}'`
       file_to_download = File.join(where_to_put_decks, deck_filename)
 
