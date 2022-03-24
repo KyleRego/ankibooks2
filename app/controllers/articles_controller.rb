@@ -49,6 +49,7 @@ class ArticlesController < ApplicationController
     @user = current_user
     @book = current_user.books.find_by(id: params[:book_id])
     @article = @book.articles.find(params[:id])
+    @parent_article = @article.parent
     @should_show_upload_image_button = true
     if @article.is_locked
       flash[:error] = 'You cannot edit a locked article.'
