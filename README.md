@@ -1,7 +1,8 @@
 # README
 
 ## Run this command to watch for changes in the view files for Tailwind
-npx tailwindcss -i app/assets/stylesheets/application.css -o app/assets/stylesheets/wind.css --watch
+
+`npx tailwindcss -i app/assets/stylesheets/application.css -o app/assets/stylesheets/wind.css --watch`
 
 ## Heroku Deployment Notes
 
@@ -16,4 +17,4 @@ Libvips must be installed for some features of Active Storage to work correctly.
 `heroku buildpacks:add heroku/ruby`
 
 To see what buildpacks will be used:
-heroku buildpacks
+`heroku buildpacks`

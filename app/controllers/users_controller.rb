@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "Welcome to AnkiBooks"
-      redirect_to @user
+      redirect_to "/books"
     else
       render 'new', status: :unprocessable_entity
     end
