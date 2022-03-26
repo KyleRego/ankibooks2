@@ -36,7 +36,7 @@ try { // for views/articles/edit.html.erb
     const updatePreviewButton = document.querySelector("#update-preview-button");
 
     function updatePreview(){
-        preview.innerHTML = marked.parse(textArea.value);
+        preview.innerHTML = DOMPurify.sanitize(marked.parse(textArea.value));
     }
     updatePreview();
 
@@ -126,7 +126,7 @@ try { // for views/books/show.html.erb
       fetchResponsePromise
       .then(response => response.json())
       .then(function(data){
-        articleContentDiv.innerHTML = marked.parse(data["content"]);
+        articleContentDiv.innerHTML = DOMPurify.sanitize(marked.parse(data["content"]));
         downloadDeckButton.href = `/books/${book_id}/articles/${article_id}/download`;
       })
     }
