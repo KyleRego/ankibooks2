@@ -1,15 +1,17 @@
 <section class="p-4">
-  <h1 class="text-4xl border-b border-black pb-4">Search results for search string: '<%= @query %>'</h1>
+  <h1 class="text-4xl border-b border-black pb-4">Search results for: '<%= @query %>'</h1>
   <ul>
     <% @books.each do |book| %>
-      <li>
-        <div class="flex justify-start items-center pt-4">
-          <h2 class="text-2xl"><%= book.name %><h2>
-          <%= link_to "Read", "/books/#{book.id}", class: "text-md bg-blue-600 text-white px-2 py-1 rounded-md ml-4" %>
-        </div>
+      <li class="flex justify-start items-center mt-4">
+      <div>
+        <h2 class="text-2xl"><%= book.name %><h2>
         <ul class="list-inside list-disc">
           <li><%= book.description %></li>
         </ul>
+      </div>
+      <div>
+        <%= link_to "Read", "/books/#{book.id}", class: "bg-blue-600 hover:bg-blue-700 rounded-md shadow-md text-white p-2 ml-4" %>
+      </div>
       </li>
     <% end %>
   </ul>

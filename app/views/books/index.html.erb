@@ -4,7 +4,7 @@
     <h1 class="text-4xl">
       Your Books:
     </h1>
-    <a href="/books/new" class="bg-blue-600 rounded-md text-white p-2 ml-2">
+    <a href="/books/new" class="ml-2 bg-blue-600 hover:bg-blue-700 rounded-md shadow-md text-white p-2">
       New book
     </a>
   </div>
@@ -17,12 +17,12 @@
             <%= book.name %>
           </h3>
 
-          <a class="text-md bg-blue-600 text-white px-2 py-1 rounded-md ml-4" href="/books/<%= book.id %>">
+          <a class="text-md bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-md shadow-md ml-4" href="/books/<%= book.id %>">
             Read
           </a>
 
           <% if @user.can_edit?(book) %>
-            <a class="text-md bg-blue-600 text-white px-2 py-1 rounded-md ml-4" href="/books/<%= book.id %>/edit">
+            <a class="text-md bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-md shadow-md ml-4" href="/books/<%= book.id %>/edit">
               Edit
             </a>
           <% else %>

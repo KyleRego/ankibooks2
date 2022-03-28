@@ -12,11 +12,11 @@
     </div>
 
     <div class="flex flex-row items-center">
-      <a href="/books/<%= @book.id %>/articles/<%= article.id %>/new" class="text-xs rounded-md p-1 ml-2 text-white bg-blue-600">
+      <a href="/books/<%= @book.id %>/articles/<%= article.id %>/new" class="text-xs rounded-md shadow-md p-1 ml-2 text-white bg-blue-600 hover:bg-blue-700">
         New subarticle
       </a>
       <form method="post" action="/books/<%= @book.id %>/articles/<%= article.id %>/lock">
-        <button type="submit" class="text-xs rounded-md p-1 ml-2 text-white bg-blue-600">
+        <button type="submit" class="text-xs rounded-md shadow-md p-1 ml-2 text-white bg-blue-600 hover:bg-blue-700">
           <% if article.is_locked %>
             Unlock article
           <% elsif !article.is_locked %>

@@ -29,6 +29,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'sessions/new'
     post login_path, params: { session: { email: @user.email,
                                           password: 'aaa' } }
+    follow_redirect!
     assert_not is_logged_in?
     assert_template 'sessions/new'
     assert_not flash.empty?
@@ -40,6 +41,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     get login_path
     assert_template 'sessions/new'
     post login_path, params: { session: { email: "", password: "" } }
+    follow_redirect!
     assert_template 'sessions/new'
     assert_not flash.empty?
     get '/'

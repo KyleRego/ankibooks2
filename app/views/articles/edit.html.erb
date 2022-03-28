@@ -26,6 +26,7 @@
   </section>
 <% end %>
 
-<div class="mt-8 flex justify-end p-4">
+<div class="mt-8 flex justify-between p-4">
+  <%= link_to "Back", edit_book_path(@book), class: "bg-blue-600 hover:bg-blue-700 rounded-md shadow-md text-white p-2" %>
   <%= link_to "Delete article", book_article_path(@book, @article), class: "p-2 bg-red-600 text-white rounded-md", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 </div>

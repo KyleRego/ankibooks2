@@ -10,8 +10,8 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to books_path
     else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
+      flash[:error] = 'Invalid email/password combination.'
+      redirect_to '/login'
     end
   end
 

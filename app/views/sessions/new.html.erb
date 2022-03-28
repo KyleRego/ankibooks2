@@ -7,7 +7,7 @@
   <%= f.label :password, class: "block" %>
   <%= f.password_field :password, class: "block" %>
 
-  <%= f.submit "Log in" %>
+  <%= f.submit "Log in", class: "bg-blue-600 hover:bg-blue-700 rounded-md shadow-md text-white p-2 mt-4" %>
 <% end %>
 
-<p class="p-4">New user? <%= link_to "Sign up", signup_path %></p>
+<p class="p-4">New user? <%= link_to "Sign up", signup_path, class: "text-blue-600 underline" %></p>
