@@ -6,7 +6,7 @@
 
 ## Heroku Deployment Notes
 
-This [article about how to run both Python and Ruby on Heroku was useful.](https://www.codementor.io/@inanc/how-to-run-python-and-ruby-on-heroku-with-multiple-buildpacks-kgy6g3b1e)
+This [article about how to run both Python and Ruby on Heroku](https://www.codementor.io/@inanc/how-to-run-python-and-ruby-on-heroku-with-multiple-buildpacks-kgy6g3b1e) was useful.
 
 Python must be installed with the genanki module which is used to generate Anki notes from articles. `requirements.txt` and `runtime.txt` are used by the Python buildpack.
 Some features of Active Storage require `libvips` to be installed which is accomplished by the second of the three buildpacks:
